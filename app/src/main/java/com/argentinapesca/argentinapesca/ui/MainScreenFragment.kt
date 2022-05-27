@@ -1,12 +1,10 @@
 package com.argentinapesca.argentinapesca.ui
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.argentinapesca.argentinapesca.R
@@ -14,15 +12,16 @@ import com.argentinapesca.argentinapesca.data.model.Post
 import com.argentinapesca.argentinapesca.data.remote.DataSource
 import com.argentinapesca.argentinapesca.databinding.FragmentMainScreenBinding
 import com.argentinapesca.argentinapesca.databinding.FragmentPostBinding
+import com.argentinapesca.argentinapesca.databinding.PostItemBinding
 import com.argentinapesca.argentinapesca.presentation.PostViewModel
 import com.argentinapesca.argentinapesca.presentation.PostViewModelFactory
 import com.argentinapesca.argentinapesca.repository.RepositoryImpl
 import com.bumptech.glide.Glide
 
+class MainScreenFragment : Fragment(R.layout.fragment_main_screen) {
 
-class PostFragment : Fragment(R.layout.fragment_post) {
-
-    /*private lateinit var binding: FragmentPostBinding
+    private lateinit var binding: FragmentMainScreenBinding
+    private lateinit var adapter: MainScreenAdapter
 
     private val viewModel by viewModels<PostViewModel> {
         PostViewModelFactory(
@@ -30,27 +29,24 @@ class PostFragment : Fragment(R.layout.fragment_post) {
                 DataSource()
             )
         )
-    }*/
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        /*binding= FragmentMainScreenBinding.bind(view)
+        binding= FragmentMainScreenBinding.bind(view)
 
         val bindingInterface = object : RecyclerBindingInterface {
             override fun bindData(item: Post, view: View) {
-                val itemBinding = FragmentPostBinding.bind(view)
+                val itemBinding = PostItemBinding.bind(view)
                 itemBinding.txtTitle.text = item.title
-                //Glide.with(this).load(item.image).into(binding.imgPost)
+                Glide.with(context!!).load(item.image).into(itemBinding.imgPost)
             }
         }
 
         viewModel.fetchPost().observe(viewLifecycleOwner, Observer {
-            //binding.txtTitle.text = it[1].title
-            //Glide.with(this).load(it[1].image).into(binding.imgPost)
             adapter = MainScreenAdapter(it, bindingInterface)
             binding.rvMainScreen.adapter=adapter
-        })*/
-
+        })
     }
 }
