@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "315767628234",
+    "project_id": "argentina-pesca",
+    "storage_bucket": "argentina-pesca.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:315767628234:android:978c04d5c05e83cca42f33",
+        "android_client_info": {
+          "package_name": "com.argentinapesca.argentinapesca"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "315767628234-3c80blekusbfs6mavol0m93uk5bhv7jt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtSFbXi49ET0DJmstpBr6GhjPfccBdOp8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "315767628234-3c80blekusbfs6mavol0m93uk5bhv7jt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
