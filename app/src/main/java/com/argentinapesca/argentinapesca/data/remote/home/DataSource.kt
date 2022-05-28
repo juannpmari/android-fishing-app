@@ -1,6 +1,5 @@
-package com.argentinapesca.argentinapesca.data.remote
+package com.argentinapesca.argentinapesca.data.remote.home
 
-import android.util.Log
 import com.argentinapesca.argentinapesca.data.model.Post
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await

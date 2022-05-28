@@ -2,6 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/item1"
-        android:title="item1"/>
+        android:id="@+id/filtrar"
+        android:title="Filtrar los resultados"/>
+
+    <item
+        android:id="@+id/proveedor"
+        android:title="Ingresar como proveedor"/>
+
+    <item
+        android:id="@+id/calificar"
+        android:title="Calificar la aplicación"/>
 </menu>

@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.drawerlayout.widget.DrawerLayout
 import com.argentinapesca.argentinapesca.databinding.ActivityMainBinding
+import com.google.android.material.navigation.NavigationView
 
 
 class MainActivity : AppCompatActivity() {
@@ -20,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
-        val drawerLayout = findViewById<DrawerLayout>(R.id.drawerLayout)
+        val drawerLayout = binding.drawerLayout//findViewById<DrawerLayout>(R.id.drawerLayout)
         toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close)
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
@@ -29,7 +30,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.navView.setNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.item1 -> Toast.makeText(
+                R.id.proveedor -> Toast.makeText(
                     applicationContext,
                     "Clickeado item 1",
                     Toast.LENGTH_SHORT
