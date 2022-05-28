@@ -3,10 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Programas/Proyectos_Android_Studio/Argentina_Pesca/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
+        <entry key="..\:/Programas/Proyectos_Android_Studio/Argentina_Pesca/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Programas/Proyectos_Android_Studio/Argentina_Pesca/app/src/main/res/layout/fragment_main_screen.xml" value="0.264" />
         <entry key="..\:/Programas/Proyectos_Android_Studio/Argentina_Pesca/app/src/main/res/layout/fragment_post.xml" value="0.16018518518518518" />
-        <entry key="..\:/Programas/Proyectos_Android_Studio/Argentina_Pesca/app/src/main/res/layout/post_item.xml" value="0.264" />
+        <entry key="..\:/Programas/Proyectos_Android_Studio/Argentina_Pesca/app/src/main/res/layout/post_item.xml" value="0.1" />
       </map>
     </option>
   </component>

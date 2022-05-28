@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.navArgs
 import com.argentinapesca.argentinapesca.R
 import com.argentinapesca.argentinapesca.data.model.Post
 import com.argentinapesca.argentinapesca.data.remote.DataSource
@@ -22,22 +23,18 @@ import com.bumptech.glide.Glide
 
 class PostFragment : Fragment(R.layout.fragment_post) {
 
-    /*private lateinit var binding: FragmentPostBinding
-
-    private val viewModel by viewModels<PostViewModel> {
-        PostViewModelFactory(
-            RepositoryImpl(
-                DataSource()
-            )
-        )
-    }*/
+    private lateinit var binding: FragmentPostBinding
+    private val args by navArgs<PostFragmentArgs>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        /*binding= FragmentMainScreenBinding.bind(view)
+        binding = FragmentPostBinding.bind(view)
+        binding.txtTitle.text = args.title
+        Glide.with(this).load(args.image).into(binding.imgPost)
+        binding.txtDescription.text="Descripción: ${args.description}"
 
-        val bindingInterface = object : RecyclerBindingInterface {
+/*        val bindingInterface = object : RecyclerBindingInterface {
             override fun bindData(item: Post, view: View) {
                 val itemBinding = FragmentPostBinding.bind(view)
                 itemBinding.txtTitle.text = item.title
