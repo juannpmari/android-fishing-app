@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewTreeLifecycleOwner
+import androidx.navigation.fragment.findNavController
 import com.argentinapesca.argentinapesca.R
 import com.argentinapesca.argentinapesca.data.remote.auth.AuthDataSource
 import com.argentinapesca.argentinapesca.databinding.FragmentSignUpBinding
@@ -37,10 +38,8 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
             email = binding.editEmail.text.toString()
             password = binding.editPassword.text.toString()
             viewModel.signUp(email, password).observe(viewLifecycleOwner, Observer {
-                //Log.d("usuario","${it?.email}")
+                findNavController().navigate(R.id.mainScreenFragment)//Log.d("usuario","${it?.email}")
             })
         }
-
-
     }
 }

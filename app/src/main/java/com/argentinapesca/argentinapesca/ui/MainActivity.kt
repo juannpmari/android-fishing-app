@@ -1,12 +1,18 @@
 package com.argentinapesca.argentinapesca
 
+import android.icu.lang.UCharacter.IndicPositionalCategory.LEFT
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Gravity.LEFT
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import com.argentinapesca.argentinapesca.databinding.ActivityMainBinding
+import com.argentinapesca.argentinapesca.databinding.FragmentPostBinding
 import com.google.android.material.navigation.NavigationView
 
 
@@ -21,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
-        val drawerLayout = binding.drawerLayout//findViewById<DrawerLayout>(R.id.drawerLayout)
+        val drawerLayout = binding.drawerLayout
         toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close)
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
@@ -30,11 +36,14 @@ class MainActivity : AppCompatActivity() {
 
         binding.navView.setNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.proveedor -> Toast.makeText(
-                    applicationContext,
-                    "Clickeado item 1",
-                    Toast.LENGTH_SHORT
-                ).show()
+                R.id.proveedor -> {
+                    val navHostFragment =
+                        supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+                    val navController = navHostFragment.navController
+                    navController.navigate(R.id.authFragment)
+                    //it.setTitle("Ya logueado")
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                }
             }
             true
         }
