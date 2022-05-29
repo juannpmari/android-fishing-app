@@ -1,27 +1,23 @@
 package com.argentinapesca.argentinapesca.ui
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.argentinapesca.argentinapesca.R
 import com.argentinapesca.argentinapesca.data.model.Post
-import com.argentinapesca.argentinapesca.data.remote.DataSource
+import com.argentinapesca.argentinapesca.data.remote.home.DataSource
 import com.argentinapesca.argentinapesca.databinding.FragmentMainScreenBinding
-import com.argentinapesca.argentinapesca.databinding.FragmentPostBinding
 import com.argentinapesca.argentinapesca.databinding.PostItemBinding
-import com.argentinapesca.argentinapesca.presentation.PostViewModel
-import com.argentinapesca.argentinapesca.presentation.PostViewModelFactory
-import com.argentinapesca.argentinapesca.repository.RepositoryImpl
+import com.argentinapesca.argentinapesca.presentation.home.PostViewModel
+import com.argentinapesca.argentinapesca.presentation.home.PostViewModelFactory
+import com.argentinapesca.argentinapesca.repository.home.RepositoryImpl
 import com.bumptech.glide.Glide
 
-class MainScreenFragment : Fragment(R.layout.fragment_main_screen),MainScreenAdapter.OnClickListener {
+class MainScreenFragment : Fragment(R.layout.fragment_main_screen),
+    MainScreenAdapter.OnClickListener {
 
     private lateinit var binding: FragmentMainScreenBinding
     private lateinit var adapter: MainScreenAdapter
@@ -37,7 +33,7 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen),MainScreenAda
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding= FragmentMainScreenBinding.bind(view)
+        binding = FragmentMainScreenBinding.bind(view)
 
         val bindingInterface = object : RecyclerBindingInterface {
             override fun bindData(item: Post, view: View) {
@@ -47,14 +43,19 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen),MainScreenAda
             }
         }
         viewModel.fetchPost().observe(viewLifecycleOwner, Observer {
-            adapter = MainScreenAdapter(it, bindingInterface,this@MainScreenFragment)
-            binding.rvMainScreen.adapter=adapter
+
+            adapter = MainScreenAdapter(it, bindingInterface, this@MainScreenFragment)
+            binding.rvMainScreen.adapter = adapter
         })
     }
 
     override fun onClick(item: Post) {
         //Log.d("click","clickeado post ${item.title}")
-        val action=MainScreenFragmentDirections.actionMainScreenFragmentToPostFragment(item.title,item.image,item.description)
+        val action = MainScreenFragmentDirections.actionMainScreenFragmentToPostFragment(
+            item.title,
+            item.image,
+            item.description
+        )
         findNavController().navigate(action)
     }
 }
