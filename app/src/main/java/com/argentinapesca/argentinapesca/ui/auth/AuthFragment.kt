@@ -24,7 +24,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
 class AuthFragment : Fragment(R.layout.fragment_auth) {
-    private lateinit var auth: FirebaseAuth
+    //private lateinit var auth: FirebaseAuth
     val viewModel by viewModels<AuthViewModel> {
         AuthViewModelFactory(
             AuthRepositoryImpl(
@@ -35,11 +35,7 @@ class AuthFragment : Fragment(R.layout.fragment_auth) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //requireActivity().findViewById<NavigationView>(R.id.navView).menu.getItem(R.id.proveedor).setTitle("Ya logueado")
         val binding = FragmentAuthBinding.bind((view))
-
-        //if(auth.currentUser!=null) requireActivity().findViewById<NavigationView>(R.id.navView).menu.findItem(R.id.proveedor).setTitle("Cambiar de cuenta")
-        //else requireActivity().findViewById<NavigationView>(R.id.navView).menu.findItem(R.id.proveedor).setTitle("Ingresar")
 
         binding.btnSignIn.setOnClickListener {
             val email = binding.editEmail.text.toString()
@@ -49,7 +45,7 @@ class AuthFragment : Fragment(R.layout.fragment_auth) {
                 findNavController().navigate(action)
             })
         }
-        binding.txtLogOut.setOnClickListener{
+        binding.txtLogOut.setOnClickListener {
             Firebase.auth.signOut()
             findNavController().popBackStack()
         }
@@ -58,6 +54,7 @@ class AuthFragment : Fragment(R.layout.fragment_auth) {
         }
 
     }
+
 }
 
 
@@ -65,40 +62,40 @@ class AuthFragment : Fragment(R.layout.fragment_auth) {
 // auth = Firebase.auth
 
 /* //Crear nuevo usuario
-        auth.createUserWithEmailAndPassword("jpabb0705@gmail.com", "liverpool")
-            .addOnCompleteListener{ task ->
-                if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
-                    Log.d("TAG", "createUserWithEmail:success")
-                    val user = auth.currentUser
-                    //updateUI(user)
-                } else {
-                    // If sign in fails, display a message to the user.
-                    Log.w("TAG", "createUserWithEmail:failure", task.exception)
-                    Toast.makeText(context, "Authentication failed.",
-                        Toast.LENGTH_SHORT).show()
-                    //updateUI(null)
-                }
-            }
+ auth.createUserWithEmailAndPassword("jpabb0705@gmail.com", "liverpool")
+     .addOnCompleteListener{ task ->
+         if (task.isSuccessful) {
+             // Sign in success, update UI with the signed-in user's information
+             Log.d("TAG", "createUserWithEmail:success")
+             val user = auth.currentUser
+             //updateUI(user)
+         } else {
+             // If sign in fails, display a message to the user.
+             Log.w("TAG", "createUserWithEmail:failure", task.exception)
+             Toast.makeText(context, "Authentication failed.",
+                 Toast.LENGTH_SHORT).show()
+             //updateUI(null)
+         }
+     }
 */
 /*  //Sign-in del usuario
-  auth.signInWithEmailAndPassword("jpabb0705@gmail.com", "liverpool")
-      .addOnCompleteListener{ task ->
-          if (task.isSuccessful) {
-              // Sign in success, update UI with the signed-in user's information
+auth.signInWithEmailAndPassword("jpabb0705@gmail.com", "liverpool")
+.addOnCompleteListener{ task ->
+   if (task.isSuccessful) {
+       // Sign in success, update UI with the signed-in user's information
 
-              val user = auth.currentUser
-              Log.d("TAG", "${user?.email}")
-              Log.d("TAG", "${auth.currentUser?.uid}")
-              //updateUI(user)
-          } else {
-              // If sign in fails, display a message to the user.
-              Log.w("TAG", "signInWithEmail:failure", task.exception)
-              Toast.makeText(context, "Authentication failed.",
-                  Toast.LENGTH_SHORT).show()
-              //updateUI(null)
-          }
-      }*/
+       val user = auth.currentUser
+       Log.d("TAG", "${user?.email}")
+       Log.d("TAG", "${auth.currentUser?.uid}")
+       //updateUI(user)
+   } else {
+       // If sign in fails, display a message to the user.
+       Log.w("TAG", "signInWithEmail:failure", task.exception)
+       Toast.makeText(context, "Authentication failed.",
+           Toast.LENGTH_SHORT).show()
+       //updateUI(null)
+   }
+}*/
 
 
 

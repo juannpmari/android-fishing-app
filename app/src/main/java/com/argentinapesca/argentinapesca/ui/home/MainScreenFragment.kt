@@ -17,6 +17,7 @@ import com.argentinapesca.argentinapesca.repository.home.RepositoryImpl
 import com.argentinapesca.argentinapesca.ui.MainScreenAdapter
 import com.argentinapesca.argentinapesca.ui.RecyclerBindingInterface
 import com.bumptech.glide.Glide
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
@@ -37,6 +38,11 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val auth = Firebase.auth
+
+        if (Firebase.auth.currentUser != null) requireActivity().findViewById<NavigationView>(R.id.navView).menu.findItem(
+          R.id.proveedor).setTitle("Cambiar de cuenta")
+        else requireActivity().findViewById<NavigationView>(R.id.navView).menu.findItem(R.id.proveedor).setTitle("Ingresar")
+
 
         binding= FragmentMainScreenBinding.bind(view)
 
