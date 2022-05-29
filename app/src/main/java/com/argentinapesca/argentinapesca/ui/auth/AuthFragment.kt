@@ -38,14 +38,20 @@ class AuthFragment : Fragment(R.layout.fragment_auth) {
         //requireActivity().findViewById<NavigationView>(R.id.navView).menu.getItem(R.id.proveedor).setTitle("Ya logueado")
         val binding = FragmentAuthBinding.bind((view))
 
+        //if(auth.currentUser!=null) requireActivity().findViewById<NavigationView>(R.id.navView).menu.findItem(R.id.proveedor).setTitle("Cambiar de cuenta")
+        //else requireActivity().findViewById<NavigationView>(R.id.navView).menu.findItem(R.id.proveedor).setTitle("Ingresar")
+
         binding.btnSignIn.setOnClickListener {
             val email = binding.editEmail.text.toString()
             val password = binding.editPassword.text.toString()
             viewModel.signIn(email, password).observe(viewLifecycleOwner, Observer {
                 val action = AuthFragmentDirections.actionAuthFragmentToMainScreenFragment()
                 findNavController().navigate(action)
-                //requireActivity().findViewById<NavigationView>(R.id.navView).menu.getItem(R.id.proveedor)//.setTitle("Ya logueado")
             })
+        }
+        binding.txtLogOut.setOnClickListener{
+            Firebase.auth.signOut()
+            findNavController().popBackStack()
         }
         binding.txtRegister.setOnClickListener {
             findNavController().navigate(AuthFragmentDirections.actionAuthFragmentToSignUpFragment())

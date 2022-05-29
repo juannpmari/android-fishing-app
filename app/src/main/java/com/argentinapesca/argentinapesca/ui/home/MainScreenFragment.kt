@@ -17,6 +17,8 @@ import com.argentinapesca.argentinapesca.repository.home.RepositoryImpl
 import com.argentinapesca.argentinapesca.ui.MainScreenAdapter
 import com.argentinapesca.argentinapesca.ui.RecyclerBindingInterface
 import com.bumptech.glide.Glide
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class MainScreenFragment : Fragment(R.layout.fragment_main_screen),
     MainScreenAdapter.OnClickListener {
@@ -34,6 +36,7 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val auth = Firebase.auth
 
         binding= FragmentMainScreenBinding.bind(view)
 
@@ -45,7 +48,14 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen),
             }
         }
         viewModel.fetchPost().observe(viewLifecycleOwner, Observer {
-            adapter = MainScreenAdapter(it, bindingInterface,this@MainScreenFragment)
+            //adapter = MainScreenAdapter(it, bindingInterface,this@MainScreenFragment)
+            if(auth.currentUser!=null) {
+                adapter = MainScreenAdapter(
+                    it.filter { s -> s.poster == auth.currentUser?.uid },
+                    bindingInterface,
+                    this@MainScreenFragment
+                )
+            }else adapter = MainScreenAdapter(it, bindingInterface,this@MainScreenFragment)
             binding.rvMainScreen.adapter=adapter
         })
     }
