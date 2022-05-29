@@ -35,7 +35,6 @@ class AuthFragment : Fragment(R.layout.fragment_auth) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //requireActivity().findViewById<NavigationView>(R.id.navView).menu.getItem(R.id.proveedor).setTitle("Ya logueado")
         val binding = FragmentAuthBinding.bind((view))
 
         binding.btnSignIn.setOnClickListener {
@@ -44,7 +43,8 @@ class AuthFragment : Fragment(R.layout.fragment_auth) {
             viewModel.signIn(email, password).observe(viewLifecycleOwner, Observer {
                 val action = AuthFragmentDirections.actionAuthFragmentToMainScreenFragment()
                 findNavController().navigate(action)
-                //requireActivity().findViewById<NavigationView>(R.id.navView).menu.getItem(R.id.proveedor)//.setTitle("Ya logueado")
+                requireActivity().findViewById<NavigationView>(R.id.navView).menu.findItem(R.id.proveedor).setTitle("Cambiar de cuenta")
+                Log.d("usuario","${it?.email}")
             })
         }
         binding.txtRegister.setOnClickListener {

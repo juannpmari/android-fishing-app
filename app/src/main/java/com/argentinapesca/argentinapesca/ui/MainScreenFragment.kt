@@ -16,7 +16,8 @@ import com.argentinapesca.argentinapesca.presentation.home.PostViewModelFactory
 import com.argentinapesca.argentinapesca.repository.home.RepositoryImpl
 import com.bumptech.glide.Glide
 
-class MainScreenFragment : Fragment(R.layout.fragment_main_screen),MainScreenAdapter.OnClickListener {
+class MainScreenFragment : Fragment(R.layout.fragment_main_screen),
+    MainScreenAdapter.OnClickListener {
 
     private lateinit var binding: FragmentMainScreenBinding
     private lateinit var adapter: MainScreenAdapter
@@ -32,7 +33,7 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen),MainScreenAda
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding= FragmentMainScreenBinding.bind(view)
+        binding = FragmentMainScreenBinding.bind(view)
 
         val bindingInterface = object : RecyclerBindingInterface {
             override fun bindData(item: Post, view: View) {
@@ -42,14 +43,19 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen),MainScreenAda
             }
         }
         viewModel.fetchPost().observe(viewLifecycleOwner, Observer {
-            adapter = MainScreenAdapter(it, bindingInterface,this@MainScreenFragment)
-            binding.rvMainScreen.adapter=adapter
+
+            adapter = MainScreenAdapter(it, bindingInterface, this@MainScreenFragment)
+            binding.rvMainScreen.adapter = adapter
         })
     }
 
     override fun onClick(item: Post) {
         //Log.d("click","clickeado post ${item.title}")
-        val action=MainScreenFragmentDirections.actionMainScreenFragmentToPostFragment(item.title,item.image,item.description)
+        val action = MainScreenFragmentDirections.actionMainScreenFragmentToPostFragment(
+            item.title,
+            item.image,
+            item.description
+        )
         findNavController().navigate(action)
     }
 }
