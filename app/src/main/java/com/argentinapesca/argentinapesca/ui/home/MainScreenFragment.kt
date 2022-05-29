@@ -1,4 +1,4 @@
-package com.argentinapesca.argentinapesca.ui
+package com.argentinapesca.argentinapesca.ui.home
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -14,9 +14,12 @@ import com.argentinapesca.argentinapesca.databinding.PostItemBinding
 import com.argentinapesca.argentinapesca.presentation.home.PostViewModel
 import com.argentinapesca.argentinapesca.presentation.home.PostViewModelFactory
 import com.argentinapesca.argentinapesca.repository.home.RepositoryImpl
+import com.argentinapesca.argentinapesca.ui.MainScreenAdapter
+import com.argentinapesca.argentinapesca.ui.RecyclerBindingInterface
 import com.bumptech.glide.Glide
 
-class MainScreenFragment : Fragment(R.layout.fragment_main_screen),MainScreenAdapter.OnClickListener {
+class MainScreenFragment : Fragment(R.layout.fragment_main_screen),
+    MainScreenAdapter.OnClickListener {
 
     private lateinit var binding: FragmentMainScreenBinding
     private lateinit var adapter: MainScreenAdapter
@@ -49,7 +52,12 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen),MainScreenAda
 
     override fun onClick(item: Post) {
         //Log.d("click","clickeado post ${item.title}")
-        val action=MainScreenFragmentDirections.actionMainScreenFragmentToPostFragment(item.title,item.image,item.description)
+        val action=
+            com.argentinapesca.argentinapesca.ui.home.MainScreenFragmentDirections.actionMainScreenFragmentToPostFragment(
+                item.title,
+                item.image,
+                item.description
+            )
         findNavController().navigate(action)
     }
 }

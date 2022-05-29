@@ -7,7 +7,6 @@ import kotlinx.coroutines.tasks.await
 class DataSource {
 
     suspend fun getPosts(): List<Post> {
-        /**/
         val postList = mutableListOf<Post>()
         val querySnapshot = FirebaseFirestore.getInstance().collection("posts").get().await()
         for (post in querySnapshot.documents) {
@@ -34,11 +33,6 @@ class DataSource {
 
 
 }
-/*
-val new_post=post("Pesca de trucha")
-db.collection("posts").document("BmMGdgCsB9J35EWYsnHw").set(new_post)
-.addOnSuccessListener { Log.d("Set", "DocumentSnapshot successfully written!") }
-.addOnFailureListener { e -> Log.w("Set", "Error writing document", e) }
-*/
+
 
 

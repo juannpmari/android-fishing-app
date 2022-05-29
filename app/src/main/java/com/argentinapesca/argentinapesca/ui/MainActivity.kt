@@ -41,7 +41,13 @@ class MainActivity : AppCompatActivity() {
                         supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
                     val navController = navHostFragment.navController
                     navController.navigate(R.id.authFragment)
-                    //it.setTitle("Ya logueado")
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                }
+                R.id.newPost -> {
+                    val navHostFragment =
+                        supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+                    val navController = navHostFragment.navController
+                    navController.navigate(R.id.newPostFragment)
                     drawerLayout.closeDrawer(GravityCompat.START)
                 }
             }

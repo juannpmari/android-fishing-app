@@ -7,16 +7,19 @@
 
     <fragment
         android:id="@+id/mainScreenFragment"
-        android:name="com.argentinapesca.argentinapesca.ui.MainScreenFragment"
+        android:name="com.argentinapesca.argentinapesca.ui.home.MainScreenFragment"
         android:label="fragment_main_screen"
         tools:layout="@layout/fragment_main_screen" >
         <action
             android:id="@+id/action_mainScreenFragment_to_postFragment"
             app:destination="@id/postFragment" />
+        <action
+            android:id="@+id/action_mainScreenFragment_to_newPostFragment"
+            app:destination="@id/newPostFragment" />
     </fragment>
     <fragment
         android:id="@+id/postFragment"
-        android:name="com.argentinapesca.argentinapesca.ui.PostFragment"
+        android:name="com.argentinapesca.argentinapesca.ui.home.PostFragment"
         android:label="fragment_post"
         tools:layout="@layout/fragment_post" >
         <argument
@@ -48,4 +51,13 @@
         android:name="com.argentinapesca.argentinapesca.ui.auth.SignUpFragment"
         android:label="fragment_sign_up"
         tools:layout="@layout/fragment_sign_up" />
+    <fragment
+        android:id="@+id/newPostFragment"
+        android:name="com.argentinapesca.argentinapesca.ui.newPost.newPostFragment"
+        android:label="fragment_new_post"
+        tools:layout="@layout/fragment_new_post" >
+        <action
+            android:id="@+id/action_newPostFragment_to_mainScreenFragment"
+            app:destination="@id/mainScreenFragment" />
+    </fragment>
 </navigation>
