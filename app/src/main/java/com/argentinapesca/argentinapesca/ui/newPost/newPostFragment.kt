@@ -1,10 +1,14 @@
 package com.argentinapesca.argentinapesca.ui.newPost
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -20,6 +24,8 @@ import com.argentinapesca.argentinapesca.presentation.newPost.newPostViewModelFa
 import com.argentinapesca.argentinapesca.repository.home.RepositoryImpl
 import com.argentinapesca.argentinapesca.repository.newPost.newPostRepository
 import com.argentinapesca.argentinapesca.repository.newPost.newPostRepositoryImpl
+import java.net.URI
+import java.util.Arrays.toString
 
 class newPostFragment : Fragment(R.layout.fragment_new_post) {
 
@@ -30,11 +36,23 @@ class newPostFragment : Fragment(R.layout.fragment_new_post) {
             )
         )
     }
+    private lateinit var binding: FragmentNewPostBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentNewPostBinding.bind(view)
         val img = mutableListOf<String>()
+
+        binding.btnGallery.setOnClickListener {
+            val intent = Intent()
+            //intent.setType("image/*")
+            intent.setAction(Intent.ACTION_GET_CONTENT)
+            var uri:Uri=Uri.EMPTY
+            intent.setDataAndType(uri,"image/*")
+            resultLauncher.launch(intent)
+            binding.imgGallery.setImageURI(intent.data)
+        }
+
         binding.btnCreate.setOnClickListener {
             img.add(binding.editImage1.text.toString())
             img.add(binding.editImage2.text.toString())
@@ -46,5 +64,17 @@ class newPostFragment : Fragment(R.layout.fragment_new_post) {
             })
             findNavController().popBackStack()
         }
+
     }
+
+    /**/
+    var resultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                // There are no request codes
+                //val data: Intent? = result.data
+                //binding.imgGallery.setImageURI(data?.getData())
+            }
+        }
 }
+
