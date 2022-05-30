@@ -12,20 +12,29 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 
 
 class PostFragment : Fragment(R.layout.fragment_post) {
 
     private lateinit var binding: FragmentPostBinding
     private val args by navArgs<com.argentinapesca.argentinapesca.ui.home.PostFragmentArgs>()
+    private val img_list = mutableListOf<CarouselItem>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding = FragmentPostBinding.bind(view)
         binding.txtTitle.text = args.title
-        Glide.with(this).load(args.image).into(binding.imgPost)
-        binding.txtDescription.text="Descripción: ${args.description}"
+        //Glide.with(this).load(args.image).into(binding.imgPost)
+        for (img in args.image.toList()){
+          img_list.add(CarouselItem(img))
+        }
+        //img_list.add(CarouselItem(args.image))
+        //img_list.add(CarouselItem("https://fotos.perfil.com/2021/05/21/cropped/696/522/center/2105-1176764.jpg"))
+        binding.imgPost.addData(img_list)
+        binding.txtPoster.text = "Usuario"
+        binding.txtDescription.text = "Descripción: ${args.description}"
 
         /*Firebase.auth.signOut()
         //Log.d("user","${Firebase.auth.currentUser?.uid.toString()}")

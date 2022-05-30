@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.argentinapesca.argentinapesca.R
+import com.argentinapesca.argentinapesca.data.model.Post
 import com.argentinapesca.argentinapesca.data.remote.home.DataSource
 import com.argentinapesca.argentinapesca.data.remote.newPost.newPostDataSource
 import com.argentinapesca.argentinapesca.databinding.FragmentNewPostBinding
@@ -33,10 +34,13 @@ class newPostFragment : Fragment(R.layout.fragment_new_post) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentNewPostBinding.bind(view)
+        val img = mutableListOf<String>()
         binding.btnCreate.setOnClickListener {
+            img.add(binding.editImage1.text.toString())
+            img.add(binding.editImage2.text.toString())
             viewModel.createNewPost(
                 binding.editTitle.text.toString(),
-                binding.editImage.text.toString(),
+                img,
                 binding.editDescription.text.toString()
             ).observe(viewLifecycleOwner, Observer {
             })

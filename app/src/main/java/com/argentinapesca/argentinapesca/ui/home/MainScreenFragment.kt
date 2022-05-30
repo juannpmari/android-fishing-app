@@ -18,7 +18,9 @@ import com.argentinapesca.argentinapesca.ui.MainScreenAdapter
 import com.argentinapesca.argentinapesca.ui.RecyclerBindingInterface
 import com.bumptech.glide.Glide
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class MainScreenFragment : Fragment(R.layout.fragment_main_screen),
@@ -40,38 +42,40 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen),
         val auth = Firebase.auth
 
         if (Firebase.auth.currentUser != null) requireActivity().findViewById<NavigationView>(R.id.navView).menu.findItem(
-          R.id.proveedor).setTitle("Cambiar de cuenta")
-        else requireActivity().findViewById<NavigationView>(R.id.navView).menu.findItem(R.id.proveedor).setTitle("Ingresar")
+            R.id.proveedor
+        ).setTitle("Cambiar de cuenta")
+        else requireActivity().findViewById<NavigationView>(R.id.navView).menu.findItem(R.id.proveedor)
+            .setTitle("Ingresar")
 
 
-        binding= FragmentMainScreenBinding.bind(view)
+        binding = FragmentMainScreenBinding.bind(view)
 
         val bindingInterface = object : RecyclerBindingInterface {
             override fun bindData(item: Post, view: View) {
                 val itemBinding = PostItemBinding.bind(view)
                 itemBinding.txtTitle.text = item.title
-                Glide.with(context!!).load(item.image).into(itemBinding.imgPost)
+                Glide.with(context!!).load(item.image[0]).into(itemBinding.imgPost)
             }
         }
         viewModel.fetchPost().observe(viewLifecycleOwner, Observer {
             //adapter = MainScreenAdapter(it, bindingInterface,this@MainScreenFragment)
-            if(auth.currentUser!=null) {
+            if (auth.currentUser != null) {
                 adapter = MainScreenAdapter(
                     it.filter { s -> s.poster == auth.currentUser?.uid },
                     bindingInterface,
                     this@MainScreenFragment
                 )
-            }else adapter = MainScreenAdapter(it, bindingInterface,this@MainScreenFragment)
-            binding.rvMainScreen.adapter=adapter
+            } else adapter = MainScreenAdapter(it, bindingInterface, this@MainScreenFragment)
+            binding.rvMainScreen.adapter = adapter
         })
     }
 
     override fun onClick(item: Post) {
         //Log.d("click","clickeado post ${item.title}")
-        val action=
+        val action =
             com.argentinapesca.argentinapesca.ui.home.MainScreenFragmentDirections.actionMainScreenFragmentToPostFragment(
                 item.title,
-                item.image,
+                item.image.toTypedArray(),
                 item.description
             )
         findNavController().navigate(action)

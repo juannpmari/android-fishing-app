@@ -8,7 +8,7 @@ import kotlinx.coroutines.tasks.await
 
 class newPostDataSource {
 
-    suspend fun createNewPost(title: String, image: String, description: String) {
+    suspend fun createNewPost(title: String, image: List<String>, description: String) {
         val user = Firebase.auth.currentUser
         val new_post = Post(title, image, description, user?.uid.toString())
         Firebase.firestore.collection("posts").document().set(new_post)

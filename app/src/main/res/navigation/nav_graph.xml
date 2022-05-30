@@ -27,7 +27,7 @@
             app:argType="string" />
         <argument
             android:name="image"
-            app:argType="string" />
+            app:argType="string[]" />
         <argument
             android:name="description"
             app:argType="string" />

@@ -16,12 +16,20 @@
         android:layout_gravity="center"
         tools:text="título" />
 
-    <ImageView
+    <org.imaginativeworld.whynotimagecarousel.ImageCarousel
         android:id="@+id/img_post"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:visibility="visible"
         tools:background="@mipmap/ic_launcher"/>
+
+
+    <TextView
+        android:id="@+id/txt_poster"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:hint="Publicado por:"/>
 
     <TextView
         android:id="@+id/txt_description"

@@ -7,7 +7,7 @@ import com.argentinapesca.argentinapesca.repository.newPost.newPostRepository
 import kotlinx.coroutines.Dispatchers
 
 class newPostViewModel(private val repo: newPostRepository): ViewModel() {
-    fun createNewPost(title: String, image: String, description: String)= liveData(Dispatchers.IO){
+    fun createNewPost(title: String, image: List<String>, description: String)= liveData(Dispatchers.IO){
         emit(repo.createNewPost(title, image, description))
     }
 }
