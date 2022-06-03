@@ -1,19 +1,13 @@
 package com.argentinapesca.argentinapesca
 
-import android.icu.lang.UCharacter.IndicPositionalCategory.LEFT
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Gravity.LEFT
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.argentinapesca.argentinapesca.databinding.ActivityMainBinding
-import com.argentinapesca.argentinapesca.databinding.FragmentPostBinding
-import com.google.android.material.navigation.NavigationView
+
 
 
 class MainActivity : AppCompatActivity() {
