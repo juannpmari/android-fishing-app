@@ -1,6 +1,7 @@
 package com.argentinapesca.argentinapesca.data.remote.newPost
 
 import android.graphics.Bitmap
+import android.util.Log
 import com.argentinapesca.argentinapesca.data.model.Post
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
@@ -15,18 +16,19 @@ import java.util.*
 
 class newPostDataSource {
 
-    suspend fun createNewPost(title: String, image: List<String>, description: String) {
+    suspend fun createNewPost(title: String, image: List<String>, description: String, bitmap:Bitmap) {
         val user = Firebase.auth.currentUser
 
-        /*val storage = Firebase.storage.reference
+        val storage = Firebase.storage.reference
         val randomName = UUID.randomUUID().toString()
         val imageRef = storage.child("${user?.uid}/images/$randomName")
         val baos = ByteArrayOutputStream()
-        imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
         var downloadUrl = ""
         withContext(Dispatchers.IO) {
             downloadUrl = imageRef.putBytes(baos.toByteArray()).await().storage.downloadUrl.await().toString()
-        }*/
+        }
+        Log.d("url","$downloadUrl")
 
 
 

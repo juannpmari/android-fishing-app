@@ -1,5 +1,6 @@
 package com.argentinapesca.argentinapesca.presentation.newPost
 
+import android.graphics.Bitmap
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.liveData
@@ -7,8 +8,8 @@ import com.argentinapesca.argentinapesca.repository.newPost.newPostRepository
 import kotlinx.coroutines.Dispatchers
 
 class newPostViewModel(private val repo: newPostRepository): ViewModel() {
-    fun createNewPost(title: String, image: List<String>, description: String)= liveData(Dispatchers.IO){
-        emit(repo.createNewPost(title, image, description))
+    fun createNewPost(title: String, image: List<String>, description: String,bitmap: Bitmap)= liveData(Dispatchers.IO){
+        emit(repo.createNewPost(title, image, description,bitmap))
     }
 }
 
