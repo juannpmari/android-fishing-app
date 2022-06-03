@@ -40,50 +40,38 @@ class newPostFragment : Fragment(R.layout.fragment_new_post) {
 
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentNewPostBinding.bind(view)
         val img = mutableListOf<String>()
 
-
         binding.btnGallery.setOnClickListener {
             resultLauncher.launch("image/*")
-            if (imageUri != Uri.EMPTY) {
+            /*if (imageUri != Uri.EMPTY) {
                 //Log.d("uri", "2 uri: ${imageUri.toString()}")
-                //binding.imgGallery.setImageURI(imageUri)
-                //bitmap = MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), imageUri)
-                //binding.imgGallery.setImageBitmap(bitmap)
-            }
+            }*/
         }
-
 
         binding.btnCreate.setOnClickListener {
             img.add(binding.editImage1.text.toString())
             img.add(binding.editImage2.text.toString())
             viewModel.createNewPost(
                 binding.editTitle.text.toString(),
-                img,
                 binding.editDescription.text.toString(),
                 MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), imageUri)
             ).observe(viewLifecycleOwner, Observer {
             })
             findNavController().popBackStack()
         }
-
-
     }
-
 
     var resultLauncher: ActivityResultLauncher<String> =
         registerForActivityResult(ActivityResultContracts.GetContent(), Callback)
-
 
     object Callback : ActivityResultCallback<Uri> {
         override fun onActivityResult(result: Uri?) {
             if (result != null) {
                 imageUri = result
-                //Log.d("uri", "${imageUri.toString()}")
             }
         }
     }

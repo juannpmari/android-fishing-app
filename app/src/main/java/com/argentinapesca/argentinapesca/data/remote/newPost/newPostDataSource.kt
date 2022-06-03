@@ -16,7 +16,11 @@ import java.util.*
 
 class newPostDataSource {
 
-    suspend fun createNewPost(title: String, image: List<String>, description: String, bitmap:Bitmap) {
+    suspend fun createNewPost(
+        title: String,
+        description: String,
+        bitmap: Bitmap
+    ) {
         val user = Firebase.auth.currentUser
 
         val storage = Firebase.storage.reference
@@ -26,13 +30,13 @@ class newPostDataSource {
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
         var downloadUrl = ""
         withContext(Dispatchers.IO) {
-            downloadUrl = imageRef.putBytes(baos.toByteArray()).await().storage.downloadUrl.await().toString()
+            downloadUrl =
+                imageRef.putBytes(baos.toByteArray()).await().storage.downloadUrl.await().toString()
         }
-        Log.d("url","$downloadUrl")
+        var imgList = mutableListOf<String>()
+        imgList.add(downloadUrl)
 
-
-
-        val new_post = Post(title, image, description, user?.uid.toString())
+        val new_post = Post(title, imgList, description, user?.uid.toString())
         Firebase.firestore.collection("posts").document().set(new_post)
             .await()
     }
