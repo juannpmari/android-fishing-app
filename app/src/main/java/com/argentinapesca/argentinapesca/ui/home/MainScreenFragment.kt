@@ -54,7 +54,10 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen),
             override fun bindData(item: Post, view: View) {
                 val itemBinding = PostItemBinding.bind(view)
                 itemBinding.txtTitle.text = item.title
-                Glide.with(context!!).load(item.image[0]).into(itemBinding.imgPost)
+                if(item.image.size>0){
+                    Glide.with(context!!).load(item.image[0]).into(itemBinding.imgPost)
+                }
+
             }
         }
         viewModel.fetchPost().observe(viewLifecycleOwner, Observer {

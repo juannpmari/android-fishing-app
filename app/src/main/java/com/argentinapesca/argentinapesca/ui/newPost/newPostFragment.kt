@@ -33,9 +33,11 @@ class newPostFragment : Fragment(R.layout.fragment_new_post) {
 
     companion object {
         private lateinit var binding: FragmentNewPostBinding
+        var imageUriList= mutableListOf<Uri>()
         var imageUri by Delegates.observable(Uri.EMPTY) { prop, old, new ->
             //Log.d("uri", "Nuevo valor $new")
             binding.imgGallery.setImageURI(new)
+            imageUriList.add(new)
         }
 
     }
@@ -43,7 +45,7 @@ class newPostFragment : Fragment(R.layout.fragment_new_post) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentNewPostBinding.bind(view)
-        val img = mutableListOf<String>()
+        var bitmapList= mutableListOf<Bitmap>()
 
         binding.btnGallery.setOnClickListener {
             resultLauncher.launch("image/*")
@@ -53,12 +55,13 @@ class newPostFragment : Fragment(R.layout.fragment_new_post) {
         }
 
         binding.btnCreate.setOnClickListener {
-            img.add(binding.editImage1.text.toString())
-            img.add(binding.editImage2.text.toString())
+            for (img in imageUriList){
+                bitmapList.add(MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), img))
+            }
             viewModel.createNewPost(
                 binding.editTitle.text.toString(),
                 binding.editDescription.text.toString(),
-                MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), imageUri)
+                bitmapList
             ).observe(viewLifecycleOwner, Observer {
             })
             findNavController().popBackStack()
@@ -71,7 +74,7 @@ class newPostFragment : Fragment(R.layout.fragment_new_post) {
     object Callback : ActivityResultCallback<Uri> {
         override fun onActivityResult(result: Uri?) {
             if (result != null) {
-                imageUri = result
+                imageUri=result
             }
         }
     }
