@@ -1,11 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.home.MainScreenFragment">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Buscar publicación..." />
+
+    <RadioGroup
+        android:id="@+id/rb_publi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_all"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:checked="true"
+            android:text="Ver todas las publicaciones" />
+
+        <RadioButton
+            android:id="@+id/rb_mine"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:checked="false"
+            android:text="Ver mis publicaciones" />
+    </RadioGroup>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_mainScreen"
@@ -14,4 +42,4 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 
-</FrameLayout>
+</LinearLayout>
