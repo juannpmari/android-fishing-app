@@ -30,47 +30,55 @@ class newPostFragment : Fragment(R.layout.fragment_new_post) {
             )
         )
     }
+    private lateinit var binding: FragmentNewPostBinding
 
     companion object {
-        private lateinit var binding: FragmentNewPostBinding
-        var imageUriList= mutableListOf<Uri>()
+        /*var imageUriList= mutableListOf<Uri>()
         var imageUri by Delegates.observable(Uri.EMPTY) { prop, old, new ->
             //Log.d("uri", "Nuevo valor $new")
             binding.imgGallery.setImageURI(new)
             imageUriList.add(new)
-        }
+        }*/
 
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentNewPostBinding.bind(view)
-        var bitmapList= mutableListOf<Bitmap>()
+        //var bitmapList= mutableListOf<Bitmap>()
 
-        binding.btnGallery.setOnClickListener {
+        /*binding.btnGallery.setOnClickListener {
             resultLauncher.launch("image/*")
-            /*if (imageUri != Uri.EMPTY) {
+            if (imageUri != Uri.EMPTY) {
                 //Log.d("uri", "2 uri: ${imageUri.toString()}")
-            }*/
-        }
-
-        binding.btnCreate.setOnClickListener {
-            for (img in imageUriList){
-                bitmapList.add(MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), img))
             }
-            viewModel.createNewPost(
+        }
+        */*/
+
+        binding.btnNext.setOnClickListener {
+           // for (img in imageUriList){
+             //   bitmapList.add(MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), img))
+            //}
+            /*viewModel.createNewPost(
                 binding.editTitle.text.toString(),
                 binding.editDescription.text.toString(),
                 bitmapList,
                 binding.editPlace.text.toString(),
                 binding.editFaceLink.text.toString()
             ).observe(viewLifecycleOwner, Observer {
-            })
-            findNavController().popBackStack()
+            })*/
+            val action = newPostFragmentDirections.actionNewPostFragmentToAddImagesFragment(
+                binding.editTitle.text.toString(),
+                binding.editPlace.text.toString(),
+                binding.editDescription.text.toString(),
+                binding.editFaceLink.text.toString()
+            )
+            //findNavController().popBackStack()
+            findNavController().navigate(action)
         }
     }
 
-    var resultLauncher: ActivityResultLauncher<String> =
+    /*var resultLauncher: ActivityResultLauncher<String> =
         registerForActivityResult(ActivityResultContracts.GetContent(), Callback)
 
     object Callback : ActivityResultCallback<Uri> {
@@ -79,6 +87,6 @@ class newPostFragment : Fragment(R.layout.fragment_new_post) {
                 imageUri=result
             }
         }
-    }
+    }*/
 }
 
