@@ -3,11 +3,13 @@ package com.argentinapesca.argentinapesca
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.navigation.fragment.NavHostFragment
 import com.argentinapesca.argentinapesca.databinding.ActivityMainBinding
-
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 
 class MainActivity : AppCompatActivity() {
@@ -38,11 +40,13 @@ class MainActivity : AppCompatActivity() {
                     drawerLayout.closeDrawer(GravityCompat.START)
                 }
                 R.id.newPost -> {
-                    val navHostFragment =
-                        supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-                    val navController = navHostFragment.navController
-                    navController.navigate(R.id.newPostFragment)
-                    drawerLayout.closeDrawer(GravityCompat.START)
+                    if(Firebase.auth.currentUser!=null) {
+                        val navHostFragment =
+                            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+                        val navController = navHostFragment.navController
+                        navController.navigate(R.id.newPostFragment)
+                        drawerLayout.closeDrawer(GravityCompat.START)
+                    }else Toast.makeText(this,"Debe estar logueado para crear un post",Toast.LENGTH_SHORT).show()
                 }
             }
             true

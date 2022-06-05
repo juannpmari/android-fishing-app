@@ -81,12 +81,4 @@ class addImagesFragment : Fragment(R.layout.fragment_add_images) {
             }
         })
 
-/*object Callback : ActivityResultCallback<Uri> {
-    override fun onActivityResult(result: Uri?) {
-        if (result != null) {
-            imageUri =result
-        }
-    }
-
-}*/
 }

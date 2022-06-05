@@ -6,11 +6,14 @@
         android:title="Crear nuevo post"/>
     <item
         android:id="@+id/filtrar"
-        android:title="Filtrar los resultados"/>
+        android:title="Ordenar los resultados"/>
 
     <item
         android:id="@+id/proveedor"
         android:title="Ingresar como proveedor"/>
+
+    <item android:id="@+id/about_us"
+        android:title="About us"/>
 
     <item
         android:id="@+id/calificar"
