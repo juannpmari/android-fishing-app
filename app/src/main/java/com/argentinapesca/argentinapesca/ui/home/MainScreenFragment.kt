@@ -3,6 +3,7 @@ package com.argentinapesca.argentinapesca.ui.home
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
+import android.widget.RadioGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -23,12 +24,12 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
+
 class MainScreenFragment : Fragment(R.layout.fragment_main_screen),
     MainScreenAdapter.OnClickListener {
 
-    private lateinit var binding: FragmentMainScreenBinding
     private lateinit var adapter: MainScreenAdapter
-
+    private lateinit var binding: FragmentMainScreenBinding
     private val viewModel by viewModels<PostViewModel> {
         PostViewModelFactory(
             RepositoryImpl(
@@ -54,24 +55,38 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen),
             override fun bindData(item: Post, view: View) {
                 val itemBinding = PostItemBinding.bind(view)
                 itemBinding.txtTitle.text = item.title
-                Glide.with(context!!).load(item.image[0]).into(itemBinding.imgPost)
+                if (item.image.size > 0) {
+                    Glide.with(context!!).load(item.image[0]).into(itemBinding.imgPost)
+                }
             }
         }
-        viewModel.fetchPost().observe(viewLifecycleOwner, Observer {
-            //adapter = MainScreenAdapter(it, bindingInterface,this@MainScreenFragment)
-            if (auth.currentUser != null) {
-                adapter = MainScreenAdapter(
-                    it.filter { s -> s.poster == auth.currentUser?.uid },
-                    bindingInterface,
-                    this@MainScreenFragment
-                )
-            } else adapter = MainScreenAdapter(it, bindingInterface, this@MainScreenFragment)
+
+        viewModel.fetchPost().observe(viewLifecycleOwner, Observer { list ->
+            adapter = MainScreenAdapter(list, bindingInterface, this@MainScreenFragment)
             binding.rvMainScreen.adapter = adapter
+
+            val listener = object : RadioGroup.OnCheckedChangeListener {
+                override fun onCheckedChanged(p0: RadioGroup?, p1: Int) {
+                    if (p1 == binding.rbMine.id) {
+                        if (auth.currentUser != null) {
+                            adapter = MainScreenAdapter(
+                                list.filter { s -> s.poster == auth.currentUser?.uid },
+                                bindingInterface,
+                                this@MainScreenFragment
+                            )
+                            binding.rvMainScreen.adapter = adapter
+                        }
+                    } else {
+                        adapter = MainScreenAdapter(list, bindingInterface, this@MainScreenFragment)
+                        binding.rvMainScreen.adapter = adapter
+                    }
+                }
+            }
+            binding.rbPubli.setOnCheckedChangeListener(listener)
         })
     }
 
     override fun onClick(item: Post) {
-        //Log.d("click","clickeado post ${item.title}")
         val action =
             com.argentinapesca.argentinapesca.ui.home.MainScreenFragmentDirections.actionMainScreenFragmentToPostFragment(
                 item.title,
@@ -80,4 +95,6 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen),
             )
         findNavController().navigate(action)
     }
+
+
 }
