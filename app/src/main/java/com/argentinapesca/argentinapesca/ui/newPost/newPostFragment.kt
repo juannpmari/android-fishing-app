@@ -61,7 +61,9 @@ class newPostFragment : Fragment(R.layout.fragment_new_post) {
             viewModel.createNewPost(
                 binding.editTitle.text.toString(),
                 binding.editDescription.text.toString(),
-                bitmapList
+                bitmapList,
+                binding.editPlace.text.toString(),
+                binding.editFaceLink.text.toString()
             ).observe(viewLifecycleOwner, Observer {
             })
             findNavController().popBackStack()

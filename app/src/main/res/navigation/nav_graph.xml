@@ -34,6 +34,10 @@
         <action
             android:id="@+id/action_postFragment_to_authFragment"
             app:destination="@id/authFragment" />
+        <argument
+            android:name="place"
+            app:argType="string" />
+        <argument android:name="faceLink" />
     </fragment>
     <fragment
         android:id="@+id/authFragment"

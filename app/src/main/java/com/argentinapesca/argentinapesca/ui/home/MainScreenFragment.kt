@@ -55,6 +55,7 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen),
             override fun bindData(item: Post, view: View) {
                 val itemBinding = PostItemBinding.bind(view)
                 itemBinding.txtTitle.text = item.title
+                itemBinding.txtPlace.text=item.place
                 if (item.image.size > 0) {
                     Glide.with(context!!).load(item.image[0]).into(itemBinding.imgPost)
                 }
@@ -91,7 +92,9 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen),
             com.argentinapesca.argentinapesca.ui.home.MainScreenFragmentDirections.actionMainScreenFragmentToPostFragment(
                 item.title,
                 item.image.toTypedArray(),
-                item.description
+                item.description,
+                item.place,
+                item.faceLink
             )
         findNavController().navigate(action)
     }

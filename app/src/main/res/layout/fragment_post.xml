@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:textSize="40sp"
         android:textStyle="bold"
+        android:textColor="@color/black"
         android:layout_gravity="center"
         tools:text="título" />
 
@@ -32,10 +33,24 @@
         android:hint="Publicado por:"/>
 
     <TextView
+        android:id="@+id/txt_place"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:hint="Lugar:"/>
+
+    <TextView
         android:id="@+id/txt_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"
         tools:text="Esta es la descripción del post" />
+
+    <TextView
+        android:id="@+id/txt_faceLink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:hint="Facebook:"/>
 
 </LinearLayout>

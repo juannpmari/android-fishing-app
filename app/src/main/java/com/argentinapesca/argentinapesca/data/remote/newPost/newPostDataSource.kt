@@ -20,7 +20,9 @@ class newPostDataSource {
     suspend fun createNewPost(
         title: String,
         description: String,
-        bitmapList: List<Bitmap>
+        bitmapList: List<Bitmap>,
+        place:String,
+        faceLink:String
     ) {
         val user = Firebase.auth.currentUser
         val storage = Firebase.storage.reference
@@ -40,7 +42,7 @@ class newPostDataSource {
         }
         imgList.add(downloadUrl)
 
-        val new_post = Post(title, imgList, description, user?.uid.toString())
+        val new_post = Post(title, imgList, description, user?.uid.toString(),place,faceLink)
         Firebase.firestore.collection("posts").document().set(new_post).await()
     }
 }
