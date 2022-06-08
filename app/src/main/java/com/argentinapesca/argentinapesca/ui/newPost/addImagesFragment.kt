@@ -36,10 +36,31 @@ class addImagesFragment : Fragment(R.layout.fragment_add_images) {
 
     companion object {
         private lateinit var binding: FragmentAddImagesBinding
-        var imageUriList= mutableListOf<Uri>()
-        var imageUri by Delegates.observable(Uri.EMPTY) { prop, old, new ->
-            //Log.d("uri", "Nuevo valor $new")
-            binding.imgGallery.setImageURI(new)
+        private var img_flag: Int = 0
+        var imageUriList = mutableListOf<Uri>()
+
+        var imageUri_11 by Delegates.observable(Uri.EMPTY) { prop, old, new ->
+            binding.img11.setImageURI(new)
+            imageUriList.add(new)
+        }
+        var imageUri_12 by Delegates.observable(Uri.EMPTY) { prop, old, new ->
+            binding.img12.setImageURI(new)
+            imageUriList.add(new)
+        }
+        var imageUri_21 by Delegates.observable(Uri.EMPTY) { prop, old, new ->
+            binding.img21.setImageURI(new)
+            imageUriList.add(new)
+        }
+        var imageUri_22 by Delegates.observable(Uri.EMPTY) { prop, old, new ->
+            binding.img22.setImageURI(new)
+            imageUriList.add(new)
+        }
+        var imageUri_31 by Delegates.observable(Uri.EMPTY) { prop, old, new ->
+            binding.img31.setImageURI(new)
+            imageUriList.add(new)
+        }
+        var imageUri_32 by Delegates.observable(Uri.EMPTY) { prop, old, new ->
+            binding.img32.setImageURI(new)
             imageUriList.add(new)
         }
 
@@ -49,15 +70,50 @@ class addImagesFragment : Fragment(R.layout.fragment_add_images) {
         super.onViewCreated(view, savedInstanceState)
 
         binding = FragmentAddImagesBinding.bind(view)
-        var bitmapList= mutableListOf<Bitmap>()
+        var bitmapList = mutableListOf<Bitmap>()
 
-        binding.btnGallery.setOnClickListener {
+        /*binding.btnGallery.setOnClickListener {
+            resultLauncher.launch("image/*")
+        }*/*/
+        binding.img11.setOnClickListener {
+            img_flag = 11
             resultLauncher.launch("image/*")
         }
 
-       binding.btnCreate.setOnClickListener {
-            for (img in imageUriList){
-                bitmapList.add(MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), img))
+        binding.img12.setOnClickListener {
+            img_flag = 12
+            resultLauncher.launch("image/*")
+        }
+
+        binding.img21.setOnClickListener {
+            img_flag = 21
+            resultLauncher.launch("image/*")
+        }
+
+        binding.img22.setOnClickListener {
+            img_flag = 22
+            resultLauncher.launch("image/*")
+        }
+
+        binding.img31.setOnClickListener {
+            img_flag = 31
+            resultLauncher.launch("image/*")
+        }
+
+        binding.img32.setOnClickListener {
+            img_flag = 32
+            resultLauncher.launch("image/*")
+        }
+
+
+        binding.btnCreate.setOnClickListener {
+            for (img in imageUriList) {
+                bitmapList.add(
+                    MediaStore.Images.Media.getBitmap(
+                        requireActivity().getContentResolver(),
+                        img
+                    )
+                )
             }
             viewModel.createNewPost(
                 args.title,
@@ -67,18 +123,44 @@ class addImagesFragment : Fragment(R.layout.fragment_add_images) {
                 args.faceLink
             ).observe(viewLifecycleOwner, Observer {
             })
-            findNavController().popBackStack(R.id.newPostFragment,inclusive = true)
+            findNavController().popBackStack(R.id.newPostFragment, inclusive = true)
         }
 
     }
 
     var resultLauncher: ActivityResultLauncher<String> =
-        registerForActivityResult(ActivityResultContracts.GetContent(), object : ActivityResultCallback<Uri> {
-            override fun onActivityResult(result: Uri?) {
-                if (result != null) {
-                    imageUri =result
-                }
-            }
-        })
+        registerForActivityResult(
+            ActivityResultContracts.GetContent(),
+            object : ActivityResultCallback<Uri> {
+                override fun onActivityResult(result: Uri?) {
+                    //if (result != null) {
+                    when (img_flag) {
+                        11 -> {
+                            imageUri_11 = result
+                            img_flag = 0
+                        }
+                        12 -> {
+                            imageUri_12 = result
+                            img_flag = 0
+                        }
+                        21 -> {
+                            imageUri_21 = result
+                            img_flag = 0
+                        }
+                        22 -> {
+                            imageUri_22 = result
+                            img_flag = 0
+                        }
+                        31 -> {
+                            imageUri_31 = result
+                            img_flag = 0
+                        }
+                        32 -> {
+                            imageUri_32 = result
+                            img_flag = 0
+                        }
+                    }
 
+                }
+            })
 }

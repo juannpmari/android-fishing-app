@@ -52,5 +52,7 @@ class newPostDataSource {
         //Sin breakpoint --> se suben al revés
         //con breakpoint en val new_post... --> se guarda una lista vacía
         //con breakpoint en Firebase... --> se suben en el orden correcto
+
+        //Al subir más de dos fotos se guardan solo dos (si pongo algún breakpoint no se guarda ninguna)
     }
 }
