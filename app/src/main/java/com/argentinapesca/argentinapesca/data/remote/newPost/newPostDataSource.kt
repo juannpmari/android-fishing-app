@@ -8,12 +8,11 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.*
 import kotlinx.coroutines.tasks.await
-import kotlinx.coroutines.withContext
 import java.io.ByteArrayOutputStream
 import java.util.*
+import java.util.stream.IntStream.range
 
 class newPostDataSource {
 
@@ -21,28 +20,37 @@ class newPostDataSource {
         title: String,
         description: String,
         bitmapList: List<Bitmap>,
-        place:String,
-        faceLink:String
+        place: String,
+        faceLink: String
     ) {
         val user = Firebase.auth.currentUser
         val storage = Firebase.storage.reference
 
-        var downloadUrl: String
         var imgList = mutableListOf<String>()
-        var bitmap=bitmapList[0] //Anda para una foto, habría que ver porqué con más no anda
-        var randomName = UUID.randomUUID().toString()
-        var imageRef = storage.child("${user?.uid}/images/$randomName")
-        val baos = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-        withContext(Dispatchers.IO) {
-            downloadUrl =
-                imageRef.putBytes(baos.toByteArray()).await().storage.downloadUrl.await()
-                    .toString()
-            Log.d("img", "${downloadUrl}")
+        try {
+            coroutineScope {
+                for (bitmap in bitmapList) {
+                    var downloadUrl: String
+                    var randomName = UUID.randomUUID().toString()
+                    var imageRef = storage.child("${user?.uid}/images/$randomName")
+                    var baos = ByteArrayOutputStream()
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+                    async(Dispatchers.IO) {
+                        downloadUrl = imageRef.putBytes(baos.toByteArray())
+                            .await().storage.downloadUrl.await().toString()
+                        imgList.add(downloadUrl)
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            Log.d("img", "$e")
         }
-        imgList.add(downloadUrl)
 
-        val new_post = Post(title, imgList, description, user?.uid.toString(),place,faceLink)
+        val new_post = Post(title, imgList, description, user?.uid.toString(), place, faceLink)
         Firebase.firestore.collection("posts").document().set(new_post).await()
+
+        //Sin breakpoint --> se suben al revés
+        //con breakpoint en val new_post... --> se guarda una lista vacía
+        //con breakpoint en Firebase... --> se suben en el orden correcto
     }
 }
