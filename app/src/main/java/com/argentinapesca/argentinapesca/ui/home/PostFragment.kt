@@ -34,6 +34,8 @@ class PostFragment : Fragment(R.layout.fragment_post) {
         //img_list.add(CarouselItem("https://fotos.perfil.com/2021/05/21/cropped/696/522/center/2105-1176764.jpg"))
         binding.imgPost.addData(img_list)
         binding.txtPoster.text = "Usuario"
+        binding.txtPlace.text="Ubicación: ${args.place}"
+        binding.txtFaceLink.text="Facebook: ${args.faceLink}"
         binding.txtDescription.text = "Descripción: ${args.description}"
 
         /*Firebase.auth.signOut()
