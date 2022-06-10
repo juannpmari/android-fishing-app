@@ -12,7 +12,12 @@ import kotlinx.coroutines.Dispatchers
 
 class AuthViewModel(private val repo: AuthRepository) : ViewModel() {
     fun signUp(email: String, password: String) = liveData(Dispatchers.IO) {
-        emit(repo.signUp(email, password))
+        try {
+            emit(repo.signUp(email, password))
+        } catch (e: Exception) {
+            Log.d("signup", "$e")
+            emit(e)
+        }
     }
 
     fun signIn(email: String, password: String) = liveData(Dispatchers.IO) {
