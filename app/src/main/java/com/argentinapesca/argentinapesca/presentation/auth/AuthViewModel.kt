@@ -1,19 +1,27 @@
 package com.argentinapesca.argentinapesca.presentation.auth
 
+import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.liveData
 import com.argentinapesca.argentinapesca.repository.auth.AuthRepository
 import com.argentinapesca.argentinapesca.repository.home.Repository
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import kotlinx.coroutines.Dispatchers
 
 class AuthViewModel(private val repo: AuthRepository) : ViewModel() {
-    fun signUp(email:String, password:String) = liveData(Dispatchers.IO) {
-        emit(repo.signUp(email,password))
+    fun signUp(email: String, password: String) = liveData(Dispatchers.IO) {
+        emit(repo.signUp(email, password))
     }
 
-    fun signIn(email:String, password:String) = liveData(Dispatchers.IO) {
-        emit(repo.signIn(email,password))
+    fun signIn(email: String, password: String) = liveData(Dispatchers.IO) {
+        try {
+            emit(repo.signIn(email, password))
+        } catch (e: Exception) {
+            Log.d("signin", "$e")
+            emit(e)
+        }
     }
 }
 

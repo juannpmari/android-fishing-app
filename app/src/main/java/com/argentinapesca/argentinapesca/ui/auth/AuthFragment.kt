@@ -19,12 +19,18 @@ import com.argentinapesca.argentinapesca.presentation.auth.AuthViewModelFactory
 import com.argentinapesca.argentinapesca.repository.auth.AuthRepositoryImpl
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.google.protobuf.Empty
+import java.lang.IllegalArgumentException
 
 class AuthFragment : Fragment(R.layout.fragment_auth) {
     //private lateinit var auth: FirebaseAuth
+    private lateinit var binding: FragmentAuthBinding
+
     val viewModel by viewModels<AuthViewModel> {
         AuthViewModelFactory(
             AuthRepositoryImpl(
@@ -35,14 +41,51 @@ class AuthFragment : Fragment(R.layout.fragment_auth) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val binding = FragmentAuthBinding.bind((view))
+        binding = FragmentAuthBinding.bind((view))
+
 
         binding.btnSignIn.setOnClickListener {
             val email = binding.editEmail.text.toString()
             val password = binding.editPassword.text.toString()
-            viewModel.signIn(email, password).observe(viewLifecycleOwner, Observer {
-                val action = AuthFragmentDirections.actionAuthFragmentToMainScreenFragment()
-                findNavController().navigate(action)
+            validateCredentials(email, password)
+            viewModel.signIn(email, password).observe(viewLifecycleOwner, Observer { result ->
+                when (result) {
+                    is FirebaseUser -> {
+                        val action = AuthFragmentDirections.actionAuthFragmentToMainScreenFragment()
+                        findNavController().navigate(action)
+                    }
+                    is FirebaseAuthInvalidCredentialsException -> {
+                        Toast.makeText(
+                            this.requireContext(),
+                            "Ingrese un email válido",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                    is FirebaseAuthInvalidUserException -> {
+                        Toast.makeText(
+                            this.requireContext(),
+                            "No se encontró el usuario",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                    is IllegalArgumentException -> {
+                    }
+                    else -> {
+                        Toast.makeText(
+                            this.requireContext(),
+                            "Ocurrió un error",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+                /*if (it is FirebaseUser) {
+                    val action = AuthFragmentDirections.actionAuthFragmentToMainScreenFragment()
+                    findNavController().navigate(action)
+                } else Toast.makeText(
+                    this.requireContext(),
+                    "Email o contraseña son inválidos",
+                    Toast.LENGTH_SHORT
+                ).show()*/
             })
         }
         binding.txtLogOut.setOnClickListener {
@@ -53,6 +96,16 @@ class AuthFragment : Fragment(R.layout.fragment_auth) {
             findNavController().navigate(AuthFragmentDirections.actionAuthFragmentToSignUpFragment())
         }
 
+    }
+
+    private fun validateCredentials(email: String, password: String) {
+        if (email.isEmpty()) {
+            binding.editEmail.error = "Ingrese un email"
+        }
+        if (password.isEmpty()) {
+            binding.editPassword.error = "Ingrese una contraseña"
+        }
+        //Acá podría tmb validar si tienen formato correcto, etc.
     }
 
 }
