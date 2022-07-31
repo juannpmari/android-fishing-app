@@ -2,7 +2,7 @@ package com.argentinapesca.argentinapesca.data.model
 
 class User(
     val UID:String,
-    val Facebook:String,
-    val telefono:String
-
+    val faceProfile:String,
+    val celular:String
+//Acá puedo agregar más datos
 )
