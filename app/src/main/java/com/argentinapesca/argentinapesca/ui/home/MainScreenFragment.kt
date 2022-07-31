@@ -1,6 +1,7 @@
 package com.argentinapesca.argentinapesca.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.RadioGroup
@@ -42,14 +43,22 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen),
         super.onViewCreated(view, savedInstanceState)
         val auth = Firebase.auth
 
-        if (Firebase.auth.currentUser != null) requireActivity().findViewById<NavigationView>(R.id.navView).menu.findItem(
+        /*if (Firebase.auth.currentUser != null) requireActivity().findViewById<NavigationView>(R.id.navView).menu.findItem(
             R.id.proveedor
         ).setTitle("Cambiar de cuenta")
         else requireActivity().findViewById<NavigationView>(R.id.navView).menu.findItem(R.id.proveedor)
-            .setTitle("Ingresar")
-
+            .setTitle("Ingresar")*/
 
         binding = FragmentMainScreenBinding.bind(view)
+
+        if (auth.currentUser!= null) {
+            val name= auth.currentUser?.displayName.toString()
+            binding.userName.text = name
+        }
+        else binding.userName.text="Ingresar/Registrarse"
+
+
+
 
         val bindingInterface = object : RecyclerBindingInterface {
             override fun bindData(item: Post, view: View) {
@@ -60,6 +69,20 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen),
                     Glide.with(context!!).load(item.image[0]).into(itemBinding.imgPost)
                 }
             }
+        }
+
+        binding.userName.setOnClickListener {
+
+            if (auth.currentUser== null) {
+                val action = MainScreenFragmentDirections.actionMainScreenFragmentToAuthFragment()
+                findNavController().navigate(action)
+            }
+            else{
+                val action = MainScreenFragmentDirections.actionMainScreenFragmentToProfileFragment()
+                findNavController().navigate(action)
+            }
+
+
         }
 
         viewModel.fetchPost().observe(viewLifecycleOwner, Observer { list ->
@@ -98,6 +121,5 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen),
             )
         findNavController().navigate(action)
     }
-
 
 }

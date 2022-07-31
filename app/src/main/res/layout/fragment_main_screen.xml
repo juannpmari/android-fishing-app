@@ -9,16 +9,25 @@
     tools:context=".ui.home.MainScreenFragment">
 
 
-    <EditText
+
+    <TextView
+        android:id="@+id/userName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Buscar publicación..." />
+        android:gravity="center_horizontal"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        tools:text="Nombre de usuario"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
     <RadioGroup
         android:id="@+id/rb_publi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <RadioButton
             android:id="@+id/rb_all"
@@ -31,10 +40,20 @@
             android:id="@+id/rb_mine"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
             android:checked="false"
             android:text="Ver mis publicaciones" />
     </RadioGroup>
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+    </LinearLayout>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Buscar publicación..." />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_mainScreen"

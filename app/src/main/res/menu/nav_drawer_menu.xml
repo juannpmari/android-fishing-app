@@ -4,19 +4,8 @@
     <item
         android:id="@+id/newPost"
         android:title="Crear nuevo post"/>
-    <item
-        android:id="@+id/filtrar"
-        android:title="Ordenar los resultados"/>
 
-    <item
-        android:id="@+id/proveedor"
-        android:title="Ingresar"/>
-
-    <item
-        android:id="@+id/profile"
-        android:title="Mi perfil"/>
-
-    <item android:id="@+id/about_us"
+      <item android:id="@+id/about_us"
         android:title="About us"/>
 
     <item

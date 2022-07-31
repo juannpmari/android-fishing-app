@@ -32,13 +32,13 @@ class MainActivity : AppCompatActivity() {
 
         binding.navView.setNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.proveedor -> {
+                /*R.id.proveedor -> {
                     val navHostFragment =
                         supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
                     val navController = navHostFragment.navController
                     navController.navigate(R.id.authFragment)
                     drawerLayout.closeDrawer(GravityCompat.START)
-                }
+                }*/
                 R.id.newPost -> {
                     if(Firebase.auth.currentUser!=null) {
                         val navHostFragment =

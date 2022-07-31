@@ -88,10 +88,6 @@ class AuthFragment : Fragment(R.layout.fragment_auth) {
                 ).show()*/
             })
         }
-        binding.txtLogOut.setOnClickListener {
-            Firebase.auth.signOut()
-            findNavController().popBackStack()
-        }
         binding.txtRegister.setOnClickListener {
             findNavController().navigate(AuthFragmentDirections.actionAuthFragmentToSignUpFragment())
         }
