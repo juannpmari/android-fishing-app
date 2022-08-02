@@ -43,28 +43,19 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen),
         super.onViewCreated(view, savedInstanceState)
         val auth = Firebase.auth
 
-        /*if (Firebase.auth.currentUser != null) requireActivity().findViewById<NavigationView>(R.id.navView).menu.findItem(
-            R.id.proveedor
-        ).setTitle("Cambiar de cuenta")
-        else requireActivity().findViewById<NavigationView>(R.id.navView).menu.findItem(R.id.proveedor)
-            .setTitle("Ingresar")*/
-
         binding = FragmentMainScreenBinding.bind(view)
 
-        if (auth.currentUser!= null) {
-            val name= auth.currentUser?.displayName.toString()
+        if (auth.currentUser != null) {
+            val name = auth.currentUser?.displayName.toString()
             binding.userName.text = name
-        }
-        else binding.userName.text="Ingresar/Registrarse"
-
-
+        } else binding.userName.text = "Ingresar/Registrarse"
 
 
         val bindingInterface = object : RecyclerBindingInterface {
             override fun bindData(item: Post, view: View) {
                 val itemBinding = PostItemBinding.bind(view)
                 itemBinding.txtTitle.text = item.title
-                itemBinding.txtPlace.text=item.place
+                itemBinding.txtPlace.text = item.place
                 if (item.image.size > 0) {
                     Glide.with(context!!).load(item.image[0]).into(itemBinding.imgPost)
                 }
@@ -73,12 +64,12 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen),
 
         binding.userName.setOnClickListener {
 
-            if (auth.currentUser== null) {
+            if (auth.currentUser == null) {
                 val action = MainScreenFragmentDirections.actionMainScreenFragmentToAuthFragment()
                 findNavController().navigate(action)
-            }
-            else{
-                val action = MainScreenFragmentDirections.actionMainScreenFragmentToProfileFragment()
+            } else {
+                val action =
+                    MainScreenFragmentDirections.actionMainScreenFragmentToProfileFragment()
                 findNavController().navigate(action)
             }
 
@@ -117,7 +108,9 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen),
                 item.image.toTypedArray(),
                 item.description,
                 item.place,
-                item.faceLink
+                item.poster,
+                item.posterName
+                //item.faceLink
             )
         findNavController().navigate(action)
     }

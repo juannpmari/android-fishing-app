@@ -43,7 +43,12 @@
         <argument
             android:name="place"
             app:argType="string" />
-        <argument android:name="faceLink" />
+        <argument
+            android:name="poster"
+            app:argType="string" />
+        <argument
+            android:name="posterName"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/authFragment"
@@ -83,9 +88,6 @@
             app:argType="string" />
         <argument
             android:name="description"
-            app:argType="string" />
-        <argument
-            android:name="faceLink"
             app:argType="string" />
     </fragment>
     <fragment

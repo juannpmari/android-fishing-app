@@ -5,6 +5,7 @@ data class Post(
     val image:List<String> = listOf(),
     val description:String="",
     val poster:String ="",
-    val place:String="",
-    val faceLink:String=""
+    val posterName:String="",
+    val place:String=""//,
+    //val faceLink:String=""
 )

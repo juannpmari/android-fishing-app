@@ -37,7 +37,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             Firebase.auth.signOut()
             findNavController().popBackStack()
         }
-        viewModel.getUserInfo().observe(viewLifecycleOwner) { result ->
+        viewModel.getUserInfo(Firebase.auth.currentUser?.uid.toString()).observe(viewLifecycleOwner) { result ->
             when (result) {
                 is UserData -> {
                     binding.txtName.text = Firebase.auth.currentUser?.displayName.toString()

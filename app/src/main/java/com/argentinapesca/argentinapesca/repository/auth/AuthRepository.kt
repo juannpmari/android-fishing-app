@@ -5,7 +5,7 @@ import com.argentinapesca.argentinapesca.data.remote.auth.AuthDataSource
 import com.google.firebase.auth.FirebaseUser
 
 interface AuthRepository {
-    suspend fun signUp(email:String, password:String) : FirebaseUser?
+    suspend fun signUp(email:String, password:String, username:String,phone:String, face:String) : FirebaseUser?
     suspend fun signIn(email:String, password:String) : FirebaseUser?
-    suspend fun getUserInfo(): UserData
+    suspend fun getUserInfo(poster:String): UserData
 }

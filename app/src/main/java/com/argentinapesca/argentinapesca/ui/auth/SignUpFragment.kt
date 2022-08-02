@@ -40,49 +40,56 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
         binding = FragmentSignUpBinding.bind(view)
         var email = ""
         var password = ""
+        var username = ""
+        var phone = ""
+        var face = ""
 
         binding.btnSignUp.setOnClickListener {
             email = binding.editEmail.text.toString()
             password = binding.editPassword.text.toString()
+            username = binding.editUsername.text.toString()
+            phone = binding.editPhone.text.toString()
+            face = binding.editFace.text.toString()
             validateCredentials(email, password)
-            viewModel.signUp(email, password).observe(viewLifecycleOwner, Observer { result ->
-                when (result) {
-                    is FirebaseUser -> {
-                        findNavController().navigate(R.id.mainScreenFragment)
+            viewModel.signUp(email, password, username,phone, face)
+                .observe(viewLifecycleOwner, Observer { result ->
+                    when (result) {
+                        is FirebaseUser -> {
+                            findNavController().navigate(R.id.mainScreenFragment)
+                        }
+                        is FirebaseAuthInvalidCredentialsException -> {
+                            Toast.makeText(
+                                this.requireContext(),
+                                "Ingrese un email válido",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                        is FirebaseAuthWeakPasswordException -> {
+                            Toast.makeText(
+                                this.requireContext(),
+                                "La contraseña debe contener al menos 6 caracteres",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                        is FirebaseAuthUserCollisionException -> {
+                            Toast.makeText(
+                                this.requireContext(),
+                                "Ya existe un usuario registrado con este email",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                        is IllegalArgumentException -> {
+                        }
+                        else -> {
+                            Toast.makeText(
+                                this.requireContext(),
+                                "Ocurrió un error",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                     }
-                    is FirebaseAuthInvalidCredentialsException -> {
-                        Toast.makeText(
-                            this.requireContext(),
-                            "Ingrese un email válido",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                    is FirebaseAuthWeakPasswordException -> {
-                        Toast.makeText(
-                            this.requireContext(),
-                            "La contraseña debe contener al menos 6 caracteres",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                    is FirebaseAuthUserCollisionException -> {
-                        Toast.makeText(
-                            this.requireContext(),
-                            "Ya existe un usuario registrado con este email",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                    is IllegalArgumentException -> {
-                    }
-                    else -> {
-                        Toast.makeText(
-                            this.requireContext(),
-                            "Ocurrió un error",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                }
 
-            })
+                })
         }
     }
 
