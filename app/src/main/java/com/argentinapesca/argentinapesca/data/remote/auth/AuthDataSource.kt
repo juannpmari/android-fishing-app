@@ -3,7 +3,7 @@ package com.argentinapesca.argentinapesca.data.remote.auth
 import android.util.Log
 import android.widget.Toast
 import com.argentinapesca.argentinapesca.data.model.Post
-import com.argentinapesca.argentinapesca.data.model.User
+import com.argentinapesca.argentinapesca.data.model.UserData
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
@@ -29,14 +29,14 @@ class AuthDataSource {
         return auth.currentUser
     }
 
-    suspend fun getUserInfo(): User {
+    suspend fun getUserInfo(): UserData {
         val userUID = Firebase.auth.currentUser?.uid
         val querySnapshot = FirebaseFirestore.getInstance().collection("users").get().await()
-        var curUser = User("null", "null", "null")
+        var curUser = UserData("null", "null", "null")
 
         for (user in querySnapshot.documents) {
-            user.toObject(User::class.java)?.let {
-                if (it.UID == userUID) curUser = it
+            user.toObject(UserData::class.java)?.let {
+                if (it.uid == userUID) curUser = it
             }
         }
         return curUser

@@ -16,6 +16,15 @@
         tools:text="Username"/>
 
     <TextView
+        android:id="@+id/txt_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textSize="35dp"
+        android:layout_gravity="center_horizontal"
+        tools:text="Email"/>
+
+    <TextView
         android:id="@+id/txt_faceProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

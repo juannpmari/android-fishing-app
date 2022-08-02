@@ -28,6 +28,10 @@ class AuthViewModel(private val repo: AuthRepository) : ViewModel() {
             emit(e)
         }
     }
+
+    fun getUserInfo() = liveData(Dispatchers.IO){
+        emit(repo.getUserInfo())
+    }
 }
 
 class AuthViewModelFactory(private val repo: AuthRepository) : ViewModelProvider.Factory {
