@@ -84,7 +84,6 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen),
                     }
 
                     override fun onNothingSelected(p0: AdapterView<*>?) {
-
                     }
                 }
 
@@ -127,7 +126,9 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen),
         override fun bindData(item: Post, view: View) {
             val itemBinding = PostItemBinding.bind(view)
             itemBinding.txtTitle.text = item.title
-            itemBinding.txtPlace.text = item.place
+            itemBinding.txtPlace.text = "Ubicación: " + item.place
+            itemBinding.txtSpecies.text = "Especie(s):"
+            itemBinding.txtPrice.text = "Precio: $" + item.price
             if (item.image.size > 0) {
                 Glide.with(context!!).load(item.image[0]).into(itemBinding.imgPost)
             }

@@ -14,7 +14,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
+        android:background="@drawable/username_back"
         android:textSize="25sp"
+        android:textColor="@color/black"
         android:textStyle="bold"
         tools:text="Nombre de usuario" />
 
@@ -49,13 +51,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@drawable/sort_back"
+            android:layout_marginLeft="8dp"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:textSize="15dp"
+                android:textSize="20dp"
+                android:textColor="@color/black"
                 android:text="Ordenar por:" />
 
             <Spinner
@@ -63,6 +68,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:spinnerMode="dropdown" />
         </LinearLayout>
 
@@ -72,13 +78,13 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Buscar publicación..." />
+        android:background="@drawable/searchbar_back"
+        android:hint=" Buscar publicación..." />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_mainScreen"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
 
 </LinearLayout>

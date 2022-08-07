@@ -2,13 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="450dp"
+    android:orientation="vertical"
+    android:background="@drawable/searchbar_back">
     <TextView
         android:id="@+id/txt_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="50sp"
+        android:textSize="30sp"
         android:textStyle="bold"
         android:textColor="@color/black"
         android:gravity="center_horizontal"
@@ -16,13 +17,32 @@
 
     <TextView
         android:id="@+id/txt_place"
-        android:textSize="35sp"
+        android:textSize="25sp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        tools:text = "Ubicación"/>
+
+    <TextView
+        android:id="@+id/txt_species"
+        android:textSize="25sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        tools:text = "Especie(s)"/>
+
+    <TextView
+        android:id="@+id/txt_price"
+        android:textSize="25sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        tools:text = "Precio"/>
 
     <ImageView
         android:id="@+id/img_post"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:background="@mipmap/ic_launcher"/>
+        android:layout_height="match_parent"
+        tools:background="@mipmap/ic_launcher"
+        android:layout_marginBottom="8dp"/>
 </LinearLayout>
