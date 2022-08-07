@@ -52,34 +52,6 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen),
             binding.userName.text = name
         } else binding.userName.text = "Ingresar/Registrarse"
 
-        val options = listOf("ubicación", "menor precio", "mayor precio", "especie")
-        val spinnerAdapter =
-            ArrayAdapter(requireActivity(), android.R.layout.simple_spinner_item, options)
-        binding.spinnerSort.adapter = spinnerAdapter
-
-        /*var sortBy = ""
-        binding.spinnerSort.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                sortBy=binding.spinnerSort.selectedItem.toString()
-                //Log.d("spinner","$sortBy")
-            }
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
-            }
-        }*/
-
-
-        val bindingInterface = object : RecyclerBindingInterface {
-            override fun bindData(item: Post, view: View) {
-                val itemBinding = PostItemBinding.bind(view)
-                itemBinding.txtTitle.text = item.title
-                itemBinding.txtPlace.text = item.place
-                if (item.image.size > 0) {
-                    Glide.with(context!!).load(item.image[0]).into(itemBinding.imgPost)
-                }
-            }
-        }
-
         binding.userName.setOnClickListener {
             if (auth.currentUser == null) {
                 val action = MainScreenFragmentDirections.actionMainScreenFragmentToAuthFragment()
@@ -91,87 +63,76 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen),
             }
         }
 
+        val options = listOf("ubicación", "menor precio", "mayor precio", "especie")
+        val spinnerAdapter =
+            ArrayAdapter(requireActivity(), android.R.layout.simple_spinner_item, options)
+        binding.spinnerSort.adapter = spinnerAdapter
+
+
         viewModel.fetchPost().observe(viewLifecycleOwner, Observer { list ->
 
-            //var sortBy = ""
-            var sortedList = listOf<Post>()
-            when(binding.spinnerSort.selectedItem.toString()){
-                "ubicación" -> {sortedList=list.sortedBy { it.place }}
-                "menor precio" -> {sortedList=list.sortedBy { it.title }}
-                //Acá agregar las otras opciones
-            }
-            adapter = MainScreenAdapter(sortedList, bindingInterface, this@MainScreenFragment)
-            binding.rvMainScreen.adapter = adapter
+            var sortedList = sortList(list)
+            setAdapter(sortedList)
 
-            binding.spinnerSort.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-                override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                    //sortBy=binding.spinnerSort.selectedItem.toString()
-                    //Log.d("spinner","$sortBy")
-                    when(binding.spinnerSort.selectedItem.toString()){
-                        "ubicación" -> {sortedList=list.sortedBy { it.place }}
-                        "menor precio" -> {
-                            Log.d("spinner","Ordenar por titulo")
-                            sortedList=list.sortedBy { it.title }}
-                        //Acá agregar las otras opciones
+            binding.spinnerSort.onItemSelectedListener =
+                object : AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                        sortedList = sortList(list)
+                        if (binding.rbMine.isChecked && auth.currentUser != null) setAdapter(
+                            sortedList.filter { s -> s.poster == auth.currentUser?.uid })
+                        else setAdapter(sortedList)
                     }
-                    if(binding.rbMine.isChecked){
-                        if (auth.currentUser != null) {
-                            adapter = MainScreenAdapter(
-                                sortedList.filter { s -> s.poster == auth.currentUser?.uid },
-                                bindingInterface,
-                                this@MainScreenFragment
-                            )
-                            binding.rvMainScreen.adapter = adapter
-                        }
-                    } else {
-                        adapter = MainScreenAdapter(sortedList, bindingInterface, this@MainScreenFragment)
-                        binding.rvMainScreen.adapter = adapter
+
+                    override fun onNothingSelected(p0: AdapterView<*>?) {
+
                     }
-                    //adapter = MainScreenAdapter(sortedList, bindingInterface, this@MainScreenFragment)
-                    //binding.rvMainScreen.adapter = adapter
                 }
-                override fun onNothingSelected(p0: AdapterView<*>?) {
-                    TODO("Not yet implemented")
-                }
-            }
 
-
-
-
-            //adapter = MainScreenAdapter(sortedList, bindingInterface, this@MainScreenFragment)
-            //binding.rvMainScreen.adapter = adapter
 
             val listener = object : RadioGroup.OnCheckedChangeListener {
                 override fun onCheckedChanged(p0: RadioGroup?, p1: Int) {
 
-                    if (p1 == binding.rbMine.id) {
-                        if (auth.currentUser != null) {
-                            adapter = MainScreenAdapter(
-                                sortedList.filter { s -> s.poster == auth.currentUser?.uid },
-                                bindingInterface,
-                                this@MainScreenFragment
-                            )
-                            binding.rvMainScreen.adapter = adapter
-                        }
-                    } else {
-                        adapter = MainScreenAdapter(sortedList, bindingInterface, this@MainScreenFragment)
-                        binding.rvMainScreen.adapter = adapter
-                    }
-
-
+                    if (p1 == binding.rbMine.id && auth.currentUser != null) setAdapter(
+                        sortedList.filter { s -> s.poster == auth.currentUser?.uid })
+                    else setAdapter(sortedList)
                 }
             }
             binding.rbPubli.setOnCheckedChangeListener(listener)
         })
     }
 
-    /*fun sortList(list:List<Post>){
-        when(binding.spinnerSort.selectedItem.toString()){
-            "ubicación" -> {lista=list.sortedBy { it.place }}
-            "menor precio" -> {list=list.sortedBy { it.title }}
+    fun sortList(list: List<Post>): List<Post> {
+        var sortedList = listOf<Post>()
+        when (binding.spinnerSort.selectedItem.toString()) {
+            "ubicación" -> {
+                sortedList = list.sortedBy { it.place }
+            }
+            "menor precio" -> {
+                sortedList = list.sortedBy { it.price }
+            }
+            "mayor precio" -> {
+                sortedList = list.sortedByDescending { it.price }
+            }
             //Acá agregar las otras opciones
         }
-    }*/
+        return sortedList
+    }
+
+    fun setAdapter(list: List<Post>) {
+        adapter = MainScreenAdapter(list, bindingInterface, this@MainScreenFragment)
+        binding.rvMainScreen.adapter = adapter
+    }
+
+    val bindingInterface = object : RecyclerBindingInterface {
+        override fun bindData(item: Post, view: View) {
+            val itemBinding = PostItemBinding.bind(view)
+            itemBinding.txtTitle.text = item.title
+            itemBinding.txtPlace.text = item.place
+            if (item.image.size > 0) {
+                Glide.with(context!!).load(item.image[0]).into(itemBinding.imgPost)
+            }
+        }
+    }
 
     override fun onClick(item: Post) {
         val action =
@@ -181,7 +142,8 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen),
                 item.description,
                 item.place,
                 item.poster,
-                item.posterName
+                item.posterName,
+                item.price
                 //item.faceLink
             )
         findNavController().navigate(action)

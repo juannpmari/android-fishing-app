@@ -50,6 +50,7 @@ class PostFragment : Fragment(R.layout.fragment_post) {
         binding.imgPost.addData(img_list)
         binding.txtPoster.text = "Publicado por: " + args.posterName
         binding.txtPlace.text = "Ubicación: ${args.place}"
+        binding.txtPrice.text = "Precio:  $${args.price}"
         binding.txtDescription.text = "Descripción: ${args.description}"
 
         viewModel.getUserInfo(args.poster).observe(viewLifecycleOwner) { result ->

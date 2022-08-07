@@ -49,6 +49,9 @@
         <argument
             android:name="posterName"
             app:argType="string" />
+        <argument
+            android:name="price"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/authFragment"
