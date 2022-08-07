@@ -6,6 +6,5 @@ data class Post(
     val description:String="",
     val poster:String ="",
     val posterName:String="",
-    val place:String=""//,
-    //val faceLink:String=""
+    val place:String=""
 )

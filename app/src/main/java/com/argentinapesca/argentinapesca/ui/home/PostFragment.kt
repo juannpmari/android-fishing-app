@@ -42,14 +42,14 @@ class PostFragment : Fragment(R.layout.fragment_post) {
         binding = FragmentPostBinding.bind(view)
         binding.txtTitle.text = args.title
         //Glide.with(this).load(args.image).into(binding.imgPost)
-        for (img in args.image.toList()){
-          img_list.add(CarouselItem(img))
+        for (img in args.image.toList()) {
+            img_list.add(CarouselItem(img))
         }
         //img_list.add(CarouselItem(args.image))
         //img_list.add(CarouselItem("https://fotos.perfil.com/2021/05/21/cropped/696/522/center/2105-1176764.jpg"))
         binding.imgPost.addData(img_list)
         binding.txtPoster.text = "Publicado por: " + args.posterName
-        binding.txtPlace.text="Ubicación: ${args.place}"
+        binding.txtPlace.text = "Ubicación: ${args.place}"
         binding.txtDescription.text = "Descripción: ${args.description}"
 
         viewModel.getUserInfo(args.poster).observe(viewLifecycleOwner) { result ->
@@ -60,13 +60,5 @@ class PostFragment : Fragment(R.layout.fragment_post) {
                 }
             }
         }
-
-        /*Firebase.auth.signOut()
-        //Log.d("user","${Firebase.auth.currentUser?.uid.toString()}")
-        val new= newPostDataSource()
-        GlobalScope.launch {
-            new.createNewPost("pesca de lisa","https://eltubapesca.com.ar/wp-content/uploads/2020/01/El-Tuba-Pesca-Lisa.jpg","Pesca en el rio salado")
-        }*/
-
     }
 }

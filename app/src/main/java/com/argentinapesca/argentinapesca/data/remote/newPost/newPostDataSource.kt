@@ -21,7 +21,6 @@ class newPostDataSource {
         description: String,
         bitmapList: List<Bitmap>,
         place: String
-        //faceLink: String
     ) {
         val user = Firebase.auth.currentUser
         val storage = Firebase.storage.reference

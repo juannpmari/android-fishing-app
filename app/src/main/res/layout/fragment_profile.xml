@@ -3,61 +3,68 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.ProfileFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".ui.home.ProfileFragment">
 
     <TextView
         android:id="@+id/txt_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="8dp"
         android:textSize="50dp"
-        android:layout_gravity="center_horizontal"
-        tools:text="Username"/>
+        android:textStyle="bold"
+        tools:text="Username" />
 
     <TextView
         android:id="@+id/txt_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="8dp"
         android:textSize="35dp"
-        android:layout_gravity="center_horizontal"
-        tools:text="Email"/>
+        tools:text="Email" />
 
     <TextView
         android:id="@+id/txt_faceProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="8dp"
         android:textSize="35dp"
-        android:layout_gravity="center_horizontal"
-        tools:text="Facebook profile"/>
+        tools:text="Facebook profile" />
 
     <TextView
         android:id="@+id/txt_cellphone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="8dp"
         android:textSize="35dp"
+        tools:text="Cellphone" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        tools:text="Cellphone"/>
+        android:text="Editar" />
 
     <TextView
         android:id="@+id/txt_logOut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:textSize="25dp"
         android:layout_gravity="center_horizontal"
-        android:text="Cerrar sesión"/>
+        android:layout_marginTop="150dp"
+        android:text="Cerrar sesión"
+        android:textSize="25dp" />
 
     <TextView
         android:id="@+id/txt_deleteAcc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:textSize="25dp"
         android:layout_gravity="center_horizontal"
-        android:text="Cerrar cuenta"/>
+        android:layout_marginBottom="8dp"
+        android:text="Cerrar cuenta"
+        android:textSize="25dp" />
 
 </LinearLayout>

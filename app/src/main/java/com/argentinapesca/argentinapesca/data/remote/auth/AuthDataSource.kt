@@ -20,7 +20,7 @@ class AuthDataSource {
         val auth = Firebase.auth
         auth.createUserWithEmailAndPassword(email, password).await()
         auth.currentUser?.updateProfile(userProfileChangeRequest { displayName = username })
-        val new_user = UserData(auth.uid.toString(),face,phone)//, faceLink)
+        val new_user = UserData(auth.uid.toString(),face,phone)
         Firebase.firestore.collection("users").document().set(new_user).await()
         return auth.currentUser
     }
@@ -32,7 +32,6 @@ class AuthDataSource {
     }
 
     suspend fun getUserInfo(poster: String): UserData {
-        //val userUID = Firebase.auth.currentUser?.uid
         val querySnapshot = FirebaseFirestore.getInstance().collection("users").get().await()
         var curUser = UserData("null", "null","null")
 

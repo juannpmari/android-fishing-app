@@ -24,7 +24,6 @@ class AuthViewModel(private val repo: AuthRepository) : ViewModel() {
         try {
             emit(repo.signIn(email, password))
         } catch (e: Exception) {
-            //Log.d("signin", "$e")
             emit(e)
         }
     }
