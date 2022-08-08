@@ -16,11 +16,17 @@ import java.sql.Types.NULL
 
 class AuthDataSource {
 
-    suspend fun signUp(email: String, password: String, username:String,phone:String, face:String): FirebaseUser? {
+    suspend fun signUp(
+        email: String,
+        password: String,
+        username: String,
+        phone: String,
+        face: String
+    ): FirebaseUser? {
         val auth = Firebase.auth
         auth.createUserWithEmailAndPassword(email, password).await()
         auth.currentUser?.updateProfile(userProfileChangeRequest { displayName = username })
-        val new_user = UserData(auth.uid.toString(),face,phone)
+        val new_user = UserData(auth.uid.toString(), face, phone)
         Firebase.firestore.collection("users").document().set(new_user).await()
         return auth.currentUser
     }
@@ -33,7 +39,7 @@ class AuthDataSource {
 
     suspend fun getUserInfo(poster: String): UserData {
         val querySnapshot = FirebaseFirestore.getInstance().collection("users").get().await()
-        var curUser = UserData("null", "null","null")
+        var curUser = UserData("null", "null", "null")
 
         for (user in querySnapshot.documents) {
             user.toObject(UserData::class.java)?.let {
@@ -41,5 +47,35 @@ class AuthDataSource {
             }
         }
         return curUser
+    }
+
+    suspend fun editUserInfo(
+        //email: String = "",
+        username: String = "",
+        faceProfile: String = "",
+        celular: String = ""
+    ) {
+        val user = Firebase.auth.currentUser
+        if (username != "") {
+            Log.d("editUserInfo", "Entré en editUserInfo")
+            val profileUpdates = userProfileChangeRequest {
+                displayName = username
+            }
+            user!!.updateProfile(profileUpdates)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        Log.d("editUserInfo", "User profile updated.")
+                    }
+                }
+        }
+
+        //val userData = getUserInfo(user?.uid.toString())
+
+
+             //.update("celular", celular).await()
+        //Log.d("editUserInfo", "${myuser.}")
+
+        //if (celular != "") userData.up//.celular = celular
+        //if (faceProfile != "") userData.faceProfile = faceProfile
     }
 }

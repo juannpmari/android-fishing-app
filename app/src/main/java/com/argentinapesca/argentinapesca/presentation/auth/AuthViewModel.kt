@@ -11,14 +11,15 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import kotlinx.coroutines.Dispatchers
 
 class AuthViewModel(private val repo: AuthRepository) : ViewModel() {
-    fun signUp(email: String, password: String, username:String,phone:String, face:String) = liveData(Dispatchers.IO) {
-        try {
-            emit(repo.signUp(email, password,username,phone, face))
-        } catch (e: Exception) {
-            Log.d("signup", "$e")
-            emit(e)
+    fun signUp(email: String, password: String, username: String, phone: String, face: String) =
+        liveData(Dispatchers.IO) {
+            try {
+                emit(repo.signUp(email, password, username, phone, face))
+            } catch (e: Exception) {
+                Log.d("signup", "$e")
+                emit(e)
+            }
         }
-    }
 
     fun signIn(email: String, password: String) = liveData(Dispatchers.IO) {
         try {
@@ -28,8 +29,18 @@ class AuthViewModel(private val repo: AuthRepository) : ViewModel() {
         }
     }
 
-    fun getUserInfo(poster:String) = liveData(Dispatchers.IO){
+    fun getUserInfo(poster: String) = liveData(Dispatchers.IO) {
         emit(repo.getUserInfo(poster))
+        Log.d("editUserInfo", "getUSerInfo")
+    }
+
+    fun editUserInfo(
+        username: String = "",
+        faceProfile: String = "",
+        celular: String = ""
+    ) = liveData(Dispatchers.IO) {
+        emit(repo.editUserInfo(username, faceProfile, celular))
+        Log.d("editUserInfo", "editUserInfo-viewmodel")
     }
 
 }

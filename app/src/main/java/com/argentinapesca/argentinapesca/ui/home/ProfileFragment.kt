@@ -1,6 +1,7 @@
 package com.argentinapesca.argentinapesca.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,7 @@ import com.argentinapesca.argentinapesca.presentation.auth.AuthViewModel
 import com.argentinapesca.argentinapesca.presentation.auth.AuthViewModelFactory
 import com.argentinapesca.argentinapesca.repository.auth.AuthRepositoryImpl
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.auth.User
 import com.google.firebase.ktx.Firebase
 
@@ -46,6 +48,12 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                     binding.txtCellphone.text = result.celular
                 }
             }
+        }
+
+        binding.btnEdit.setOnClickListener{
+            viewModel.editUserInfo("nuevoUSer","nuevoFace","nuevoCel").observe(viewLifecycleOwner){
+            }
+
         }
 
     }
