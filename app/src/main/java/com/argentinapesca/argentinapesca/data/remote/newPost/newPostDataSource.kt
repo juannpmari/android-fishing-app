@@ -45,7 +45,15 @@ class newPostDataSource {
             Log.d("img", "$e")
         }
 
-        val new_post = Post(title, imgList, description, user?.uid.toString(), user?.displayName.toString(), place)//, faceLink)
+        val new_post = Post(
+            title,
+            imgList,
+            description,
+            "precio",
+            user?.uid.toString(),
+            user?.displayName.toString(),
+            place
+        )//, faceLink)
         Firebase.firestore.collection("posts").document().set(new_post).await()
 
         //Sin breakpoint --> se suben al revés

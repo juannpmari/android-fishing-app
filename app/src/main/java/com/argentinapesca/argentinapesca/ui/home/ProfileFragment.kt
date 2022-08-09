@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.argentinapesca.argentinapesca.R
@@ -40,6 +41,14 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             Firebase.auth.signOut()
             findNavController().popBackStack()
         }
+
+        binding.txtDeleteAcc.setOnClickListener{
+            Firebase.auth.currentUser!!.delete().addOnCompleteListener {
+                //Toast.makeText(this.requireContext(),"Cuenta eliminada exitosamente",Toast.LENGTH_SHORT).show()
+                findNavController().popBackStack()}
+
+        }
+
         viewModel.getUserInfo(Firebase.auth.currentUser?.uid.toString()).observe(viewLifecycleOwner) { result ->
             when (result) {
                 is UserData -> {
@@ -54,6 +63,5 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         binding.btnEdit.setOnClickListener{
             findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToEditProfileFragment())
         }
-
     }
 }

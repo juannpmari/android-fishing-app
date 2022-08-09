@@ -65,7 +65,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="8dp"
-        android:text="Cerrar cuenta"
+        android:text="Eliminar cuenta"
         android:textSize="25dp" />
 
 </LinearLayout>

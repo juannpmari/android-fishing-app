@@ -41,7 +41,9 @@ class AuthDataSource {
     suspend fun getUserInfo(poster: String): UserData {
         //val querySnapshot = FirebaseFirestore.getInstance().collection("users").get().await()
         //val curUser:UserData
-        var querySnapshot = FirebaseFirestore.getInstance().collection("users").document(poster).get().await()//UserData("null", "null", "null")
+        var querySnapshot =
+            FirebaseFirestore.getInstance().collection("users").document(poster).get()
+                .await()//UserData("null", "null", "null")
         val curUser = querySnapshot.toObject(UserData::class.java)!!
 
         /*for (user in querySnapshot.documents) {
