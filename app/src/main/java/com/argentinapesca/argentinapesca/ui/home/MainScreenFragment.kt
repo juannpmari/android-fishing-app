@@ -1,8 +1,11 @@
 package com.argentinapesca.argentinapesca.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.RadioGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -26,8 +29,8 @@ import com.google.firebase.ktx.Firebase
 
 
 class MainScreenFragment : Fragment(R.layout.fragment_main_screen),
-    MainScreenAdapter.OnClickListener {
 
+    MainScreenAdapter.OnClickListener {
     private lateinit var adapter: MainScreenAdapter
     private lateinit var binding: FragmentMainScreenBinding
     private val viewModel by viewModels<PostViewModel> {
@@ -42,49 +45,94 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen),
         super.onViewCreated(view, savedInstanceState)
         val auth = Firebase.auth
 
-        if (Firebase.auth.currentUser != null) requireActivity().findViewById<NavigationView>(R.id.navView).menu.findItem(
-            R.id.proveedor
-        ).setTitle("Cambiar de cuenta")
-        else requireActivity().findViewById<NavigationView>(R.id.navView).menu.findItem(R.id.proveedor)
-            .setTitle("Ingresar")
-
-
         binding = FragmentMainScreenBinding.bind(view)
 
-        val bindingInterface = object : RecyclerBindingInterface {
-            override fun bindData(item: Post, view: View) {
-                val itemBinding = PostItemBinding.bind(view)
-                itemBinding.txtTitle.text = item.title
-                itemBinding.txtPlace.text=item.place
-                if (item.image.size > 0) {
-                    Glide.with(context!!).load(item.image[0]).into(itemBinding.imgPost)
-                }
+        if (auth.currentUser != null) {
+            val name = auth.currentUser?.displayName.toString()
+            binding.userName.text = name
+        } else binding.userName.text = "Ingresar/Registrarse"
+
+        binding.userName.setOnClickListener {
+            if (auth.currentUser == null) {
+                val action = MainScreenFragmentDirections.actionMainScreenFragmentToAuthFragment()
+                findNavController().navigate(action)
+            } else {
+                val action =
+                    MainScreenFragmentDirections.actionMainScreenFragmentToProfileFragment()
+                findNavController().navigate(action)
             }
         }
 
+        val options = listOf("ubicación", "menor precio", "mayor precio", "especie")
+        val spinnerAdapter =
+            ArrayAdapter(requireActivity(), android.R.layout.simple_spinner_item, options)
+        binding.spinnerSort.adapter = spinnerAdapter
+
+
         viewModel.fetchPost().observe(viewLifecycleOwner, Observer { list ->
-            adapter = MainScreenAdapter(list, bindingInterface, this@MainScreenFragment)
-            binding.rvMainScreen.adapter = adapter
+
+            var sortedList = sortList(list)
+            setAdapter(sortedList)
+
+            binding.spinnerSort.onItemSelectedListener =
+                object : AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                        sortedList = sortList(list)
+                        if (binding.rbMine.isChecked && auth.currentUser != null) setAdapter(
+                            sortedList.filter { s -> s.poster == auth.currentUser?.uid })
+                        else setAdapter(sortedList)
+                    }
+
+                    override fun onNothingSelected(p0: AdapterView<*>?) {
+                    }
+                }
+
 
             val listener = object : RadioGroup.OnCheckedChangeListener {
                 override fun onCheckedChanged(p0: RadioGroup?, p1: Int) {
-                    if (p1 == binding.rbMine.id) {
-                        if (auth.currentUser != null) {
-                            adapter = MainScreenAdapter(
-                                list.filter { s -> s.poster == auth.currentUser?.uid },
-                                bindingInterface,
-                                this@MainScreenFragment
-                            )
-                            binding.rvMainScreen.adapter = adapter
-                        }
-                    } else {
-                        adapter = MainScreenAdapter(list, bindingInterface, this@MainScreenFragment)
-                        binding.rvMainScreen.adapter = adapter
-                    }
+
+                    if (p1 == binding.rbMine.id && auth.currentUser != null) setAdapter(
+                        sortedList.filter { s -> s.poster == auth.currentUser?.uid })
+                    else setAdapter(sortedList)
                 }
             }
             binding.rbPubli.setOnCheckedChangeListener(listener)
         })
+    }
+
+    fun sortList(list: List<Post>): List<Post> {
+        var sortedList = listOf<Post>()
+        when (binding.spinnerSort.selectedItem.toString()) {
+            "ubicación" -> {
+                sortedList = list.sortedBy { it.place }
+            }
+            "menor precio" -> {
+                sortedList = list.sortedBy { it.price }
+            }
+            "mayor precio" -> {
+                sortedList = list.sortedByDescending { it.price }
+            }
+            //Acá agregar las otras opciones
+        }
+        return sortedList
+    }
+
+    fun setAdapter(list: List<Post>) {
+        adapter = MainScreenAdapter(list, bindingInterface, this@MainScreenFragment)
+        binding.rvMainScreen.adapter = adapter
+    }
+
+    val bindingInterface = object : RecyclerBindingInterface {
+        override fun bindData(item: Post, view: View) {
+            val itemBinding = PostItemBinding.bind(view)
+            itemBinding.txtTitle.text = item.title
+            itemBinding.txtPlace.text = "Ubicación: " + item.place
+            itemBinding.txtSpecies.text = "Especie(s):"
+            itemBinding.txtPrice.text = "Precio: $" + item.price
+            if (item.image.size > 0) {
+                Glide.with(context!!).load(item.image[0]).into(itemBinding.imgPost)
+            }
+        }
     }
 
     override fun onClick(item: Post) {
@@ -94,10 +142,12 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen),
                 item.image.toTypedArray(),
                 item.description,
                 item.place,
-                item.faceLink
+                item.poster,
+                item.posterName,
+                item.price
+                //item.faceLink
             )
         findNavController().navigate(action)
     }
-
 
 }

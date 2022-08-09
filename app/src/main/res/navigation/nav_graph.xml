@@ -16,6 +16,12 @@
         <action
             android:id="@+id/action_mainScreenFragment_to_newPostFragment"
             app:destination="@id/newPostFragment" />
+        <action
+            android:id="@+id/action_mainScreenFragment_to_authFragment"
+            app:destination="@id/authFragment" />
+        <action
+            android:id="@+id/action_mainScreenFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/postFragment"
@@ -37,7 +43,15 @@
         <argument
             android:name="place"
             app:argType="string" />
-        <argument android:name="faceLink" />
+        <argument
+            android:name="poster"
+            app:argType="string" />
+        <argument
+            android:name="posterName"
+            app:argType="string" />
+        <argument
+            android:name="price"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/authFragment"
@@ -78,8 +92,19 @@
         <argument
             android:name="description"
             app:argType="string" />
-        <argument
-            android:name="faceLink"
-            app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.argentinapesca.argentinapesca.ui.home.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.argentinapesca.argentinapesca.ui.home.editProfileFragment"
+        android:label="fragment_edit_profile"
+        tools:layout="@layout/fragment_edit_profile" />
 </navigation>

@@ -1,6 +1,7 @@
 package com.argentinapesca.argentinapesca.ui.newPost
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -21,8 +22,8 @@ class newPostFragment : Fragment(R.layout.fragment_new_post) {
             val action = newPostFragmentDirections.actionNewPostFragmentToAddImagesFragment(
                 binding.editTitle.text.toString(),
                 binding.editPlace.text.toString(),
-                binding.editDescription.text.toString(),
-                binding.editFaceLink.text.toString()
+                binding.editDescription.text.toString()
+                //binding.editFaceLink.text.toString()
             )
             findNavController().navigate(action)
         }

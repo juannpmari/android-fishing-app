@@ -3,18 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.PostFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".ui.home.PostFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:id="@+id/txt_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="@color/black"
         android:textSize="40sp"
         android:textStyle="bold"
-        android:textColor="@color/black"
-        android:layout_gravity="center"
         tools:text="título" />
 
     <org.imaginativeworld.whynotimagecarousel.ImageCarousel
@@ -22,22 +22,43 @@
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:visibility="visible"
-        tools:background="@mipmap/ic_launcher"/>
+        tools:background="@mipmap/ic_launcher" />
 
 
     <TextView
         android:id="@+id/txt_poster"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:hint="Publicado por:"/>
+        android:hint="Publicado por:"
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/txt_place"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:hint="Lugar:"/>
+        android:hint="Lugar:"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/txt_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Precio:"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/txt_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Teléfono:"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/txt_faceLink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Facebook:"
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/txt_description"
@@ -46,11 +67,11 @@
         android:textSize="20sp"
         tools:text="Esta es la descripción del post" />
 
-    <TextView
-        android:id="@+id/txt_faceLink"
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/txt_edit"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:hint="Facebook:"/>
+        android:text="Editar post" />
+
 
 </LinearLayout>

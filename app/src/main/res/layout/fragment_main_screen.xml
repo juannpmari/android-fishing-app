@@ -9,38 +9,82 @@
     tools:context=".ui.home.MainScreenFragment">
 
 
-    <EditText
+    <TextView
+        android:id="@+id/userName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Buscar publicación..." />
+        android:gravity="center_horizontal"
+        android:background="@drawable/username_back"
+        android:textSize="25sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        tools:text="Nombre de usuario" />
 
-    <RadioGroup
-        android:id="@+id/rb_publi"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <RadioButton
-            android:id="@+id/rb_all"
+        <RadioGroup
+            android:id="@+id/rb_publi"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:checked="true"
-            android:text="Ver todas las publicaciones" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        <RadioButton
-            android:id="@+id/rb_mine"
-            android:layout_width="wrap_content"
+            <RadioButton
+                android:id="@+id/rb_all"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="15dp"
+                android:checked="true"
+                android:text="Ver todas las publicaciones" />
+
+            <RadioButton
+                android:id="@+id/rb_mine"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="15dp"
+                android:checked="false"
+                android:text="Ver mis publicaciones" />
+        </RadioGroup>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
-            android:checked="false"
-            android:text="Ver mis publicaciones" />
-    </RadioGroup>
+            android:background="@drawable/sort_back"
+            android:layout_marginLeft="8dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textSize="20dp"
+                android:textColor="@color/black"
+                android:text="Ordenar por:" />
+
+            <Spinner
+                android:id="@+id/spinner_sort"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:spinnerMode="dropdown" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/searchbar_back"
+        android:hint=" Buscar publicación..." />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_mainScreen"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
 
 </LinearLayout>
