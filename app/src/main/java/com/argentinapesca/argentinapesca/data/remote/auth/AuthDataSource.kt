@@ -27,7 +27,8 @@ class AuthDataSource {
         auth.createUserWithEmailAndPassword(email, password).await()
         auth.currentUser?.updateProfile(userProfileChangeRequest { displayName = username })
         val new_user = UserData(auth.uid.toString(), face, phone)
-        Firebase.firestore.collection("users").document().set(new_user).await()
+        Firebase.firestore.collection("users").document(auth.currentUser?.uid.toString())
+            .set(new_user).await()
         return auth.currentUser
     }
 
@@ -38,14 +39,16 @@ class AuthDataSource {
     }
 
     suspend fun getUserInfo(poster: String): UserData {
-        val querySnapshot = FirebaseFirestore.getInstance().collection("users").get().await()
-        var curUser = UserData("null", "null", "null")
+        //val querySnapshot = FirebaseFirestore.getInstance().collection("users").get().await()
+        //val curUser:UserData
+        var querySnapshot = FirebaseFirestore.getInstance().collection("users").document(poster).get().await()//UserData("null", "null", "null")
+        val curUser = querySnapshot.toObject(UserData::class.java)!!
 
-        for (user in querySnapshot.documents) {
+        /*for (user in querySnapshot.documents) {
             user.toObject(UserData::class.java)?.let {
                 if (it.uid == poster) curUser = it
             }
-        }
+        }*/
         return curUser
     }
 
@@ -57,7 +60,6 @@ class AuthDataSource {
     ) {
         val user = Firebase.auth.currentUser
         if (username != "") {
-            Log.d("editUserInfo", "Entré en editUserInfo")
             val profileUpdates = userProfileChangeRequest {
                 displayName = username
             }
@@ -68,14 +70,11 @@ class AuthDataSource {
                     }
                 }
         }
-
-        //val userData = getUserInfo(user?.uid.toString())
-
-
-             //.update("celular", celular).await()
-        //Log.d("editUserInfo", "${myuser.}")
-
-        //if (celular != "") userData.up//.celular = celular
-        //if (faceProfile != "") userData.faceProfile = faceProfile
+        if (celular != "") FirebaseFirestore.getInstance().collection("users")
+            .document(user?.uid.toString())
+            .update("celular", celular).await()
+        if (faceProfile != "") FirebaseFirestore.getInstance().collection("users")
+            .document(user?.uid.toString())
+            .update("faceProfile", faceProfile).await()
     }
 }

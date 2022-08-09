@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.argentinapesca.argentinapesca.R
 import com.argentinapesca.argentinapesca.data.model.UserData
 import com.argentinapesca.argentinapesca.data.remote.auth.AuthDataSource
+import com.argentinapesca.argentinapesca.databinding.FragmentEditProfileBinding
 import com.argentinapesca.argentinapesca.databinding.FragmentProfileBinding
 import com.argentinapesca.argentinapesca.presentation.auth.AuthViewModel
 import com.argentinapesca.argentinapesca.presentation.auth.AuthViewModelFactory
@@ -51,9 +52,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         }
 
         binding.btnEdit.setOnClickListener{
-            viewModel.editUserInfo("nuevoUSer","nuevoFace","nuevoCel").observe(viewLifecycleOwner){
-            }
-
+            findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToEditProfileFragment())
         }
 
     }
