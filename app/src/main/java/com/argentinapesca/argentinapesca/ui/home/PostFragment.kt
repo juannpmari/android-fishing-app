@@ -1,6 +1,7 @@
 package com.argentinapesca.argentinapesca.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -52,6 +53,7 @@ class PostFragment : Fragment(R.layout.fragment_post) {
         binding.txtPlace.text = "Ubicación: ${args.place}"
         binding.txtPrice.text = "Precio:  $${args.price}"
         binding.txtDescription.text = "Descripción: ${args.description}"
+        Log.d("getUserInfo","${args.poster}")
 
         viewModel.getUserInfo(args.poster).observe(viewLifecycleOwner) { result ->
             when (result) {
@@ -61,5 +63,7 @@ class PostFragment : Fragment(R.layout.fragment_post) {
                 }
             }
         }
+
+        binding.txtEdit.isEnabled = args.poster == Firebase.auth.currentUser?.uid.toString()
     }
 }
