@@ -52,6 +52,9 @@
         <argument
             android:name="price"
             app:argType="string" />
+        <argument
+            android:name="id"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/authFragment"
@@ -91,6 +94,9 @@
             app:argType="string" />
         <argument
             android:name="description"
+            app:argType="string" />
+        <argument
+            android:name="price"
             app:argType="string" />
     </fragment>
     <fragment

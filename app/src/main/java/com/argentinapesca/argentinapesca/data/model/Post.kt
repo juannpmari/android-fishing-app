@@ -7,5 +7,6 @@ data class Post(
     val price: String = "",
     val poster: String = "",
     val posterName: String = "",
-    val place: String = ""
+    val place: String = "",
+    val id: String = "",
 )

@@ -6,72 +6,86 @@
     android:orientation="vertical"
     tools:context=".ui.home.PostFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/txt_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textColor="@color/black"
-        android:textSize="40sp"
-        android:textStyle="bold"
-        tools:text="título" />
-
-    <org.imaginativeworld.whynotimagecarousel.ImageCarousel
-        android:id="@+id/img_post"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:visibility="visible"
-        tools:background="@mipmap/ic_launcher" />
-
-
-    <TextView
-        android:id="@+id/txt_poster"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Publicado por:"
-        android:textSize="20sp" />
-
-    <TextView
-        android:id="@+id/txt_place"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Lugar:"
-        android:textSize="20sp" />
-
-    <TextView
-        android:id="@+id/txt_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Precio:"
-        android:textSize="20sp" />
-
-    <TextView
-        android:id="@+id/txt_phone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Teléfono:"
-        android:textSize="20sp" />
-
-    <TextView
-        android:id="@+id/txt_faceLink"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Facebook:"
-        android:textSize="20sp" />
-
-    <TextView
-        android:id="@+id/txt_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        tools:text="Esta es la descripción del post" />
-
-    <Button
-        android:id="@+id/txt_edit"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Editar post" />
+        android:orientation="vertical"
+        tools:context=".ui.home.PostFragment">
 
+
+        <!-- TODO: Update blank fragment layout -->
+        <TextView
+            android:id="@+id/txt_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/black"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            tools:text="título" />
+
+        <org.imaginativeworld.whynotimagecarousel.ImageCarousel
+            android:id="@+id/img_post"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:visibility="visible"
+            tools:background="@mipmap/ic_launcher" />
+
+
+        <TextView
+            android:id="@+id/txt_poster"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Publicado por:"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/txt_place"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Lugar:"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/txt_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Precio:"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/txt_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Teléfono:"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/txt_faceLink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Facebook:"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/txt_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Descripción:"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <Button
+            android:id="@+id/btn_delete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:text="Eliminar post" />
+    </LinearLayout>
 
 </LinearLayout>

@@ -7,13 +7,19 @@ import androidx.lifecycle.liveData
 import com.argentinapesca.argentinapesca.repository.newPost.newPostRepository
 import kotlinx.coroutines.Dispatchers
 
-class newPostViewModel(private val repo: newPostRepository): ViewModel() {
-    fun createNewPost(title: String, description: String,bitmap: List<Bitmap>,place:String)= liveData(Dispatchers.IO){
-        emit(repo.createNewPost(title, description,bitmap,place))
+class newPostViewModel(private val repo: newPostRepository) : ViewModel() {
+    fun createNewPost(
+        title: String,
+        description: String,
+        bitmap: List<Bitmap>,
+        place: String,
+        price: String
+    ) = liveData(Dispatchers.IO) {
+        emit(repo.createNewPost(title, description, bitmap, place, price))
     }
 }
 
-class newPostViewModelFactory(private val repo: newPostRepository): ViewModelProvider.Factory{
+class newPostViewModelFactory(private val repo: newPostRepository) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return modelClass.getConstructor(newPostRepository::class.java).newInstance(repo)
     }

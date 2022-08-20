@@ -20,7 +20,8 @@ class newPostDataSource {
         title: String,
         description: String,
         bitmapList: List<Bitmap>,
-        place: String
+        place: String,
+        price : String
     ) {
         val user = Firebase.auth.currentUser
         val storage = Firebase.storage.reference
@@ -45,16 +46,18 @@ class newPostDataSource {
             Log.d("img", "$e")
         }
 
+        val id:String = Firebase.firestore.collection("posts").document().id
         val new_post = Post(
             title,
             imgList,
             description,
-            "precio",
+            price,
             user?.uid.toString(),
             user?.displayName.toString(),
-            place
-        )//, faceLink)
-        Firebase.firestore.collection("posts").document().set(new_post).await()
+            place,
+            id
+        )
+        Firebase.firestore.collection("posts").document(id).set(new_post).await()
 
         //Sin breakpoint --> se suben al revés
         //con breakpoint en val new_post... --> se guarda una lista vacía

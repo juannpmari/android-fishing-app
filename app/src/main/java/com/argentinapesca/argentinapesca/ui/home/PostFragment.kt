@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.argentinapesca.argentinapesca.R
 import com.argentinapesca.argentinapesca.data.model.UserData
@@ -20,6 +22,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 
 
@@ -53,7 +56,7 @@ class PostFragment : Fragment(R.layout.fragment_post) {
         binding.txtPlace.text = "Ubicación: ${args.place}"
         binding.txtPrice.text = "Precio:  $${args.price}"
         binding.txtDescription.text = "Descripción: ${args.description}"
-        Log.d("getUserInfo","${args.poster}")
+        Log.d("getUserInfo", "${args.poster}")
 
         viewModel.getUserInfo(args.poster).observe(viewLifecycleOwner) { result ->
             when (result) {
@@ -64,6 +67,13 @@ class PostFragment : Fragment(R.layout.fragment_post) {
             }
         }
 
-        binding.txtEdit.isEnabled = args.poster == Firebase.auth.currentUser?.uid.toString()
+       // binding.btnDelete.isEnabled = args.poster == Firebase.auth.currentUser?.uid.toString()
+        binding.btnDelete.isVisible = args.poster == Firebase.auth.currentUser?.uid.toString()
+        binding.btnDelete.setOnClickListener {
+            Firebase.firestore.collection("posts").document(args.id).delete()
+                .addOnCompleteListener {
+                    findNavController().popBackStack()
+                }
+        }
     }
 }

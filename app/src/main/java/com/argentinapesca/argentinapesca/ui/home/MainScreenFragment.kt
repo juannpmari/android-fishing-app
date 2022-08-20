@@ -144,7 +144,8 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen),
                 item.place,
                 item.poster,
                 item.posterName,
-                item.price
+                item.price,
+                item.id
                 //item.faceLink
             )
         findNavController().navigate(action)

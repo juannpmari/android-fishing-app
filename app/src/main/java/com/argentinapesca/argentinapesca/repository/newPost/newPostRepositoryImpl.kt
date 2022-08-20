@@ -4,7 +4,7 @@ import android.graphics.Bitmap
 import com.argentinapesca.argentinapesca.data.remote.newPost.newPostDataSource
 
 class newPostRepositoryImpl(private val newPostDataSource: newPostDataSource) : newPostRepository {
-    override suspend fun createNewPost(title: String, description: String, bitmap: List<Bitmap>,place:String)=//,faceLink:String) =
-        newPostDataSource.createNewPost(title, description,bitmap,place)//,faceLink)
+    override suspend fun createNewPost(title: String, description: String, bitmap: List<Bitmap>,place:String,price:String) =
+        newPostDataSource.createNewPost(title, description,bitmap,place,price)//,faceLink)
 
 }

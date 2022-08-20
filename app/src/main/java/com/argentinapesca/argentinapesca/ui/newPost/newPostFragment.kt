@@ -22,8 +22,8 @@ class newPostFragment : Fragment(R.layout.fragment_new_post) {
             val action = newPostFragmentDirections.actionNewPostFragmentToAddImagesFragment(
                 binding.editTitle.text.toString(),
                 binding.editPlace.text.toString(),
-                binding.editDescription.text.toString()
-                //binding.editFaceLink.text.toString()
+                binding.editDescription.text.toString(),
+                binding.editPrice.text.toString()
             )
             findNavController().navigate(action)
         }
