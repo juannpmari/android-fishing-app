@@ -1,5 +1,6 @@
 package com.argentinapesca.argentinapesca.ui.home
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -42,25 +43,34 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             findNavController().popBackStack()
         }
 
-        binding.txtDeleteAcc.setOnClickListener{
-            Firebase.auth.currentUser!!.delete().addOnCompleteListener {
-                //Toast.makeText(this.requireContext(),"Cuenta eliminada exitosamente",Toast.LENGTH_SHORT).show()
-                findNavController().popBackStack()}
+        binding.txtDeleteAcc.setOnClickListener {
+            val builder = AlertDialog.Builder(this.requireContext())
+            builder.setTitle("Confirmar eliminación")
+            builder.setMessage("¿Desea eliminar la cuenta?")
 
-        }
-
-        viewModel.getUserInfo(Firebase.auth.currentUser?.uid.toString()).observe(viewLifecycleOwner) { result ->
-            when (result) {
-                is UserData -> {
-                    binding.txtName.text = Firebase.auth.currentUser?.displayName.toString()
-                    binding.txtEmail.text = Firebase.auth.currentUser?.email.toString()
-                    binding.txtFaceProfile.text = result.faceProfile
-                    binding.txtCellphone.text = result.celular
+            builder.setPositiveButton("Eliminar cuenta") { _, _ ->
+                Firebase.auth.currentUser!!.delete().addOnCompleteListener {
+                    findNavController().popBackStack()
                 }
             }
+            builder.setNegativeButton("Cancelar") { _, _ ->
+            }
+            builder.show()
         }
 
-        binding.btnEdit.setOnClickListener{
+        viewModel.getUserInfo(Firebase.auth.currentUser?.uid.toString())
+            .observe(viewLifecycleOwner) { result ->
+                when (result) {
+                    is UserData -> {
+                        binding.txtName.text = Firebase.auth.currentUser?.displayName.toString()
+                        binding.txtEmail.text = Firebase.auth.currentUser?.email.toString()
+                        binding.txtFaceProfile.text = result.faceProfile
+                        binding.txtCellphone.text = result.celular
+                    }
+                }
+            }
+
+        binding.btnEdit.setOnClickListener {
             findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToEditProfileFragment())
         }
     }

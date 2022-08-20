@@ -1,5 +1,6 @@
 package com.argentinapesca.argentinapesca.ui.home
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -70,10 +71,22 @@ class PostFragment : Fragment(R.layout.fragment_post) {
        // binding.btnDelete.isEnabled = args.poster == Firebase.auth.currentUser?.uid.toString()
         binding.btnDelete.isVisible = args.poster == Firebase.auth.currentUser?.uid.toString()
         binding.btnDelete.setOnClickListener {
-            Firebase.firestore.collection("posts").document(args.id).delete()
-                .addOnCompleteListener {
-                    findNavController().popBackStack()
-                }
+
+            val builder = AlertDialog.Builder(this.requireContext())
+            builder.setTitle("Confirmar eliminación")
+            builder.setMessage("¿Desea eliminar el post?")
+
+            builder.setPositiveButton("Eliminar post") { _, _ ->
+                Firebase.firestore.collection("posts").document(args.id).delete()
+                    .addOnCompleteListener {
+                        findNavController().popBackStack()
+                    }
+            }
+            builder.setNegativeButton("Cancelar") { _, _ ->
+            }
+            builder.show()
+
+
         }
     }
 }
