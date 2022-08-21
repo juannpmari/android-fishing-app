@@ -1,12 +1,16 @@
 package com.argentinapesca.argentinapesca.ui.home
 
 import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
+import android.text.Editable
+import android.text.InputType
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -18,6 +22,7 @@ import com.argentinapesca.argentinapesca.databinding.FragmentProfileBinding
 import com.argentinapesca.argentinapesca.presentation.auth.AuthViewModel
 import com.argentinapesca.argentinapesca.presentation.auth.AuthViewModelFactory
 import com.argentinapesca.argentinapesca.repository.auth.AuthRepositoryImpl
+import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.auth.User
@@ -46,15 +51,35 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         binding.txtDeleteAcc.setOnClickListener {
             val builder = AlertDialog.Builder(this.requireContext())
             builder.setTitle("Confirmar eliminación")
-            builder.setMessage("¿Desea eliminar la cuenta?")
-
-            builder.setPositiveButton("Eliminar cuenta") { _, _ ->
-                Firebase.auth.currentUser!!.delete().addOnCompleteListener {
-                    findNavController().popBackStack()
+            //builder.setMessage("¿Desea eliminar la cuenta?")
+            val input = EditText(this.requireContext())
+            input.setHint("Ingrese su contraseña")
+            input.inputType = InputType.TYPE_CLASS_TEXT
+            builder.setView(input)
+            builder.setPositiveButton("Aceptar", DialogInterface.OnClickListener { _, _ ->
+                val credential = EmailAuthProvider.getCredential(
+                    Firebase.auth.currentUser!!.email.toString(),
+                    input.text.toString().let { if (it.isNotEmpty()) it else "-" }
+                )
+                Firebase.auth.currentUser!!.reauthenticate(credential).addOnSuccessListener {
+                    Firebase.auth.currentUser!!.delete().addOnCompleteListener {
+                        Toast.makeText(
+                            this.requireContext(),
+                            "Cuenta eliminada",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        findNavController().popBackStack()
+                    }
+                }.addOnFailureListener {
+                    Toast.makeText(
+                        this.requireContext(),
+                        "Contraseña incorrecta",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
-            }
-            builder.setNegativeButton("Cancelar") { _, _ ->
-            }
+
+            })
+            builder.setNegativeButton("Cancelar") { _, _ -> }
             builder.show()
         }
 
