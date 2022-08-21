@@ -73,4 +73,11 @@
         android:layout_gravity="center_horizontal"
         android:text="Crear post"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:text="El post puede tardar en generar"
+        />
+
 </LinearLayout>

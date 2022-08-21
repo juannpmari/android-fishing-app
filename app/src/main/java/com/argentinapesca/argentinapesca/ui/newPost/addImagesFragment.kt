@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -107,6 +108,7 @@ class addImagesFragment : Fragment(R.layout.fragment_add_images) {
 
 
         binding.btnCreate.setOnClickListener {
+            //for (img in imageUriList) Log.d("img",img.toString())
             for (img in imageUriList) {
                 bitmapList.add(
                     MediaStore.Images.Media.getBitmap(
@@ -114,7 +116,9 @@ class addImagesFragment : Fragment(R.layout.fragment_add_images) {
                         img
                     )
                 )
+                //Log.d("img",bitmapList.last().toString())
             }
+            //for (img in bitmapList) Log.d("img",img.toString())
             viewModel.createNewPost(
                 args.title,
                 args.description,

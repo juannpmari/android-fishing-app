@@ -130,8 +130,8 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen),
             val itemBinding = PostItemBinding.bind(view)
             itemBinding.txtTitle.text = item.title
             itemBinding.txtPlace.text = "Ubicación: " + item.place
-            itemBinding.txtSpecies.text = "Especie:" + item.species
-            itemBinding.txtPrice.text = "Precio: $" + item.price
+            itemBinding.txtSpecies.text = "Especie:" + item.species.let{if(it.isNotEmpty()) it else "-"}
+            itemBinding.txtPrice.text = "Precio: $" + item.price.let{if(it.isNotEmpty()) it else "-"}
             if (item.image.size > 0) {
                 Glide.with(context!!).load(item.image[0]).into(itemBinding.imgPost)
             }

@@ -1,6 +1,7 @@
 package com.argentinapesca.argentinapesca.presentation.newPost
 
 import android.graphics.Bitmap
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.liveData
