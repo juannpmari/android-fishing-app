@@ -38,31 +38,31 @@ class addImagesFragment : Fragment(R.layout.fragment_add_images) {
     companion object {
         private lateinit var binding: FragmentAddImagesBinding
         private var img_flag: Int = 0
-        var imageUriList = mutableListOf<Uri>()
+        var imageUriList = mutableListOf<Uri>(Uri.EMPTY,Uri.EMPTY,Uri.EMPTY,Uri.EMPTY,Uri.EMPTY,Uri.EMPTY)
 
         var imageUri_11 by Delegates.observable(Uri.EMPTY) { prop, old, new ->
             binding.img11.setImageURI(new)
-            imageUriList.add(new)
+            imageUriList.set(0,new)
         }
         var imageUri_12 by Delegates.observable(Uri.EMPTY) { prop, old, new ->
             binding.img12.setImageURI(new)
-            imageUriList.add(new)
+            imageUriList.set(1,new)
         }
         var imageUri_21 by Delegates.observable(Uri.EMPTY) { prop, old, new ->
             binding.img21.setImageURI(new)
-            imageUriList.add(new)
+            imageUriList.set(2,new)
         }
         var imageUri_22 by Delegates.observable(Uri.EMPTY) { prop, old, new ->
             binding.img22.setImageURI(new)
-            imageUriList.add(new)
+            imageUriList.set(3,new)
         }
         var imageUri_31 by Delegates.observable(Uri.EMPTY) { prop, old, new ->
             binding.img31.setImageURI(new)
-            imageUriList.add(new)
+            imageUriList.set(4,new)
         }
         var imageUri_32 by Delegates.observable(Uri.EMPTY) { prop, old, new ->
             binding.img32.setImageURI(new)
-            imageUriList.add(new)
+            imageUriList.set(5,new)
         }
 
     }
@@ -108,6 +108,7 @@ class addImagesFragment : Fragment(R.layout.fragment_add_images) {
 
 
         binding.btnCreate.setOnClickListener {
+            imageUriList.removeAll(listOf(Uri.EMPTY))
             //for (img in imageUriList) Log.d("img",img.toString())
             for (img in imageUriList) {
                 bitmapList.add(
