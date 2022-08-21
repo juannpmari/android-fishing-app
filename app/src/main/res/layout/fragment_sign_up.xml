@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
-        android:hint="Email">
+        android:hint="Email*">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_email"
             android:layout_width="match_parent"
@@ -30,7 +30,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Username">
+        android:hint="Nombre de usuario*">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_username"
             android:layout_width="match_parent"
@@ -40,7 +40,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Phone number">
+        android:hint="Teléfono">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_phone"
             android:layout_width="match_parent"
@@ -50,7 +50,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Facebook page">
+        android:hint="Link de Facebook">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_face"
             android:layout_width="match_parent"
@@ -61,13 +61,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:hint="Password"
+        android:hint="Contraseña*"
         app:passwordToggleEnabled="true">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:layout_marginLeft="8dp"
+        android:text="Los campos con * son obligatorios"/>
 
     <Button
         android:id="@+id/btn_signUp"

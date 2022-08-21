@@ -120,7 +120,8 @@ class addImagesFragment : Fragment(R.layout.fragment_add_images) {
                 args.description,
                 bitmapList,
                 args.place,
-                args.price
+                args.price,
+                args.species
             ).observe(viewLifecycleOwner, Observer {
             })
             findNavController().popBackStack(R.id.newPostFragment, inclusive = true)

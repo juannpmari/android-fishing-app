@@ -38,67 +38,90 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
         super.onViewCreated(view, savedInstanceState)
 
         binding = FragmentSignUpBinding.bind(view)
-        var email = ""
-        var password = ""
-        var username = ""
-        var phone = ""
-        var face = ""
+        /* var email = ""
+         var password = ""
+         var username = ""
+         var phone = ""
+         var face = ""*/
 
         binding.btnSignUp.setOnClickListener {
-            email = binding.editEmail.text.toString()
-            password = binding.editPassword.text.toString()
-            username = binding.editUsername.text.toString()
-            phone = binding.editPhone.text.toString()
-            face = binding.editFace.text.toString()
+            var email = binding.editEmail.text.toString()
+            var password = binding.editPassword.text.toString()
+            var username = binding.editUsername.text.toString().lowercase()
+            var phone = binding.editPhone.text.toString().let { if (it.isNotEmpty()) it else "-" }
+            var face = binding.editFace.text.toString().let { if (it.isNotEmpty()) it else "-" }
             validateCredentials(email, password)
-            viewModel.signUp(email, password, username,phone, face)
-                .observe(viewLifecycleOwner, Observer { result ->
-                    when (result) {
-                        is FirebaseUser -> {
-                            findNavController().navigate(R.id.mainScreenFragment)
+            val b1 = validateUsername(username)
+            val b2 = validatePhone(phone)
+            if (b1 && b2) {
+                viewModel.signUp(email, password, username, phone, face)
+                    .observe(viewLifecycleOwner, Observer { result ->
+                        when (result) {
+                            is FirebaseUser -> {
+                                findNavController().navigate(R.id.mainScreenFragment)
+                            }
+                            is FirebaseAuthInvalidCredentialsException -> {
+                                Toast.makeText(
+                                    this.requireContext(),
+                                    "Ingrese un email válido",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                            is FirebaseAuthWeakPasswordException -> {
+                                Toast.makeText(
+                                    this.requireContext(),
+                                    "La contraseña debe contener al menos 6 caracteres",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                            is FirebaseAuthUserCollisionException -> {
+                                Toast.makeText(
+                                    this.requireContext(),
+                                    "Ya existe un usuario registrado con este email",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                            is IllegalArgumentException -> {
+                            }
+                            else -> {
+                                Toast.makeText(
+                                    this.requireContext(),
+                                    "Ocurrió un error",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
                         }
-                        is FirebaseAuthInvalidCredentialsException -> {
-                            Toast.makeText(
-                                this.requireContext(),
-                                "Ingrese un email válido",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                        is FirebaseAuthWeakPasswordException -> {
-                            Toast.makeText(
-                                this.requireContext(),
-                                "La contraseña debe contener al menos 6 caracteres",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                        is FirebaseAuthUserCollisionException -> {
-                            Toast.makeText(
-                                this.requireContext(),
-                                "Ya existe un usuario registrado con este email",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                        is IllegalArgumentException -> {
-                        }
-                        else -> {
-                            Toast.makeText(
-                                this.requireContext(),
-                                "Ocurrió un error",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    }
 
-                })
+                    })
+            }
         }
     }
 
-    private fun validateCredentials(email: String, password: String) {
-        if (email.isEmpty()) {
-            binding.editEmail.error = "Ingrese un email"
+    private fun validateCredentials(
+        email: String,
+        password: String
+    ) {
+        if (email.isEmpty()) binding.editEmail.error = "Ingrese un email"
+        if (password.isEmpty()) binding.editPassword.error = "Ingrese una contraseña"
+    }
+
+    private fun validateUsername(username: String): Boolean {
+        if (username.isEmpty()) {
+            binding.editUsername.error = "Ingrese un nombre de usuario"
+            return false
         }
-        if (password.isEmpty()) {
-            binding.editPassword.error = "Ingrese una contraseña"
+        return true
+    }
+
+    private fun validatePhone(phone: String): Boolean {
+        if (phone.isNotEmpty() && phone != "-" && phone.toIntOrNull() == null) {
+            binding.editPhone.error = "Ingrese solamente números"
+            return false
         }
+        if (phone.isNotEmpty() && phone != "-" && phone.length < 8) {
+            binding.editPhone.error = "Número incompleto"
+            return false
+        }
+        return true
     }
 }

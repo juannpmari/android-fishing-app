@@ -13,9 +13,10 @@ class newPostViewModel(private val repo: newPostRepository) : ViewModel() {
         description: String,
         bitmap: List<Bitmap>,
         place: String,
-        price: String
+        price: String,
+        species: String
     ) = liveData(Dispatchers.IO) {
-        emit(repo.createNewPost(title, description, bitmap, place, price))
+        emit(repo.createNewPost(title, description, bitmap, place, price, species))
     }
 }
 

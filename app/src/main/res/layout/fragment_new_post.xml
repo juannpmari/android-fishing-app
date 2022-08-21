@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
-        android:hint="Título">
+        android:hint="Título*">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_title"
             android:layout_width="match_parent"
@@ -46,9 +46,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:hint="Ubicación">
+        android:hint="Ubicación*">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_place"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="Especie buscada">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_species"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </com.google.android.material.textfield.TextInputLayout>

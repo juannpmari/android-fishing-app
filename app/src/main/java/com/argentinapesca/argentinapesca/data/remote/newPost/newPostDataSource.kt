@@ -21,7 +21,8 @@ class newPostDataSource {
         description: String,
         bitmapList: List<Bitmap>,
         place: String,
-        price : String
+        price: String,
+        species: String
     ) {
         val user = Firebase.auth.currentUser
         val storage = Firebase.storage.reference
@@ -46,7 +47,7 @@ class newPostDataSource {
             Log.d("img", "$e")
         }
 
-        val id:String = Firebase.firestore.collection("posts").document().id
+        val id: String = Firebase.firestore.collection("posts").document().id
         val new_post = Post(
             title,
             imgList,
@@ -55,7 +56,8 @@ class newPostDataSource {
             user?.uid.toString(),
             user?.displayName.toString(),
             place,
-            id
+            id,
+            species
         )
         Firebase.firestore.collection("posts").document(id).set(new_post).await()
 

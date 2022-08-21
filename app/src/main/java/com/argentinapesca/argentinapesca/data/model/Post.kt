@@ -9,4 +9,5 @@ data class Post(
     val posterName: String = "",
     val place: String = "",
     val id: String = "",
+    val species: String = ""
 )

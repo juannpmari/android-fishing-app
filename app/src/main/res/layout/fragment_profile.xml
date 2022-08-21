@@ -13,6 +13,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="8dp"
         android:textSize="50dp"
+        android:textColor="@color/black"
         android:textStyle="bold"
         tools:text="Username" />
 
@@ -20,28 +21,26 @@
         android:id="@+id/txt_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
+        android:layout_gravity="start"
         android:layout_marginTop="8dp"
-        android:textSize="35dp"
+        android:textSize="25dp"
         tools:text="Email" />
 
     <TextView
         android:id="@+id/txt_faceProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
         android:layout_marginTop="8dp"
-        android:textSize="35dp"
-        tools:text="Facebook profile" />
+        android:textSize="25dp"
+        tools:text="Link de Facebook" />
 
     <TextView
         android:id="@+id/txt_cellphone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
         android:layout_marginTop="8dp"
-        android:textSize="35dp"
-        tools:text="Cellphone" />
+        android:textSize="25dp"
+        tools:text="Teléfono" />
 
     <Button
         android:id="@+id/btn_edit"

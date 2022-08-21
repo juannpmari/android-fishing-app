@@ -106,6 +106,9 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen),
             "ubicación" -> {
                 sortedList = list.sortedBy { it.place }
             }
+            "especie" -> {
+                sortedList = list.sortedBy { it.species }
+            }
             "menor precio" -> {
                 sortedList = list.sortedBy { it.price }
             }
@@ -127,7 +130,7 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen),
             val itemBinding = PostItemBinding.bind(view)
             itemBinding.txtTitle.text = item.title
             itemBinding.txtPlace.text = "Ubicación: " + item.place
-            itemBinding.txtSpecies.text = "Especie(s):"
+            itemBinding.txtSpecies.text = "Especie:" + item.species
             itemBinding.txtPrice.text = "Precio: $" + item.price
             if (item.image.size > 0) {
                 Glide.with(context!!).load(item.image[0]).into(itemBinding.imgPost)
@@ -145,7 +148,8 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen),
                 item.poster,
                 item.posterName,
                 item.price,
-                item.id
+                item.id,
+                item.species
                 //item.faceLink
             )
         findNavController().navigate(action)

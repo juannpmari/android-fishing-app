@@ -49,38 +49,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         }
 
         binding.txtDeleteAcc.setOnClickListener {
-            val builder = AlertDialog.Builder(this.requireContext())
-            builder.setTitle("Confirmar eliminación")
-            //builder.setMessage("¿Desea eliminar la cuenta?")
-            val input = EditText(this.requireContext())
-            input.setHint("Ingrese su contraseña")
-            input.inputType = InputType.TYPE_CLASS_TEXT
-            builder.setView(input)
-            builder.setPositiveButton("Aceptar", DialogInterface.OnClickListener { _, _ ->
-                val credential = EmailAuthProvider.getCredential(
-                    Firebase.auth.currentUser!!.email.toString(),
-                    input.text.toString().let { if (it.isNotEmpty()) it else "-" }
-                )
-                Firebase.auth.currentUser!!.reauthenticate(credential).addOnSuccessListener {
-                    Firebase.auth.currentUser!!.delete().addOnCompleteListener {
-                        Toast.makeText(
-                            this.requireContext(),
-                            "Cuenta eliminada",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        findNavController().popBackStack()
-                    }
-                }.addOnFailureListener {
-                    Toast.makeText(
-                        this.requireContext(),
-                        "Contraseña incorrecta",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-
-            })
-            builder.setNegativeButton("Cancelar") { _, _ -> }
-            builder.show()
+            deleteAcc()
         }
 
         viewModel.getUserInfo(Firebase.auth.currentUser?.uid.toString())
@@ -88,9 +57,9 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 when (result) {
                     is UserData -> {
                         binding.txtName.text = Firebase.auth.currentUser?.displayName.toString()
-                        binding.txtEmail.text = Firebase.auth.currentUser?.email.toString()
-                        binding.txtFaceProfile.text = result.faceProfile
-                        binding.txtCellphone.text = result.celular
+                        binding.txtEmail.text = "Email: " + Firebase.auth.currentUser?.email.toString()
+                        binding.txtFaceProfile.text = "Link de facebook: " + result.faceProfile
+                        binding.txtCellphone.text = "Teléfono: " + result.celular
                     }
                 }
             }
@@ -98,5 +67,40 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         binding.btnEdit.setOnClickListener {
             findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToEditProfileFragment())
         }
+    }
+
+    private fun deleteAcc(){
+        val builder = AlertDialog.Builder(this.requireContext())
+        builder.setTitle("Confirmar eliminación")
+        //builder.setMessage("¿Desea eliminar la cuenta?")
+        val input = EditText(this.requireContext())
+        input.setHint("Ingrese su contraseña")
+        input.inputType = InputType.TYPE_CLASS_TEXT
+        builder.setView(input)
+        builder.setPositiveButton("Aceptar", DialogInterface.OnClickListener { _, _ ->
+            val credential = EmailAuthProvider.getCredential(
+                Firebase.auth.currentUser!!.email.toString(),
+                input.text.toString().let { if (it.isNotEmpty()) it else "-" }
+            )
+            Firebase.auth.currentUser!!.reauthenticate(credential).addOnSuccessListener {
+                Firebase.auth.currentUser!!.delete().addOnCompleteListener {
+                    Toast.makeText(
+                        this.requireContext(),
+                        "Cuenta eliminada",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    findNavController().popBackStack()
+                }
+            }.addOnFailureListener {
+                Toast.makeText(
+                    this.requireContext(),
+                    "Contraseña incorrecta",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+        })
+        builder.setNegativeButton("Cancelar") { _, _ -> }
+        builder.show()
     }
 }

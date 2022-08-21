@@ -57,7 +57,8 @@ class PostFragment : Fragment(R.layout.fragment_post) {
         binding.txtPlace.text = "Ubicación: ${args.place}"
         binding.txtPrice.text = "Precio:  $${args.price}"
         binding.txtDescription.text = "Descripción: ${args.description}"
-        Log.d("getUserInfo", "${args.poster}")
+        binding.txtSpecies.text = "Especie buscada: ${args.species}"
+        //Log.d("getUserInfo", "${args.poster}")
 
         viewModel.getUserInfo(args.poster).observe(viewLifecycleOwner) { result ->
             when (result) {

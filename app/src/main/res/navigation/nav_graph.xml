@@ -55,6 +55,9 @@
         <argument
             android:name="id"
             app:argType="string" />
+        <argument
+            android:name="species"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/authFragment"
@@ -97,6 +100,9 @@
             app:argType="string" />
         <argument
             android:name="price"
+            app:argType="string" />
+        <argument
+            android:name="species"
             app:argType="string" />
     </fragment>
     <fragment
