@@ -22,6 +22,7 @@ import com.argentinapesca.argentinapesca.ui.MainScreenAdapter
 import com.argentinapesca.argentinapesca.ui.RecyclerBindingInterface
 import com.bumptech.glide.Glide
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
@@ -69,18 +70,19 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen),
         binding.spinnerSort.adapter = spinnerAdapter
 
 
+
+
         viewModel.fetchPost().observe(viewLifecycleOwner, Observer { list ->
 
             var sortedList = sortList(list)
-            setAdapter(sortedList)
+            checkRButton(sortedList, auth)
+
 
             binding.spinnerSort.onItemSelectedListener =
                 object : AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                         sortedList = sortList(list)
-                        if (binding.rbMine.isChecked && auth.currentUser != null) setAdapter(
-                            sortedList.filter { s -> s.poster == auth.currentUser?.uid })
-                        else setAdapter(sortedList)
+                        checkRButton(sortedList,auth)
                     }
 
                     override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -102,18 +104,19 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen),
 
     fun sortList(list: List<Post>): List<Post> {
         var sortedList = listOf<Post>()
+
         when (binding.spinnerSort.selectedItem.toString()) {
             "ubicación" -> {
-                sortedList = list.sortedBy { it.place }
+                sortedList = list.sortedBy { it.place }.toMutableList()
             }
             "especie" -> {
                 sortedList = list.sortedBy { it.species }
             }
             "menor precio" -> {
-                sortedList = list.sortedBy { it.price }
+                sortedList = list.sortedBy { it.price}
             }
             "mayor precio" -> {
-                sortedList = list.sortedByDescending { it.price }
+                sortedList = list.sortedByDescending { it.price}
             }
             //Acá agregar las otras opciones
         }
@@ -125,13 +128,21 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen),
         binding.rvMainScreen.adapter = adapter
     }
 
+    fun checkRButton(sortedList:List<Post>, auth:FirebaseAuth){
+        if (binding.rbMine.isChecked && auth.currentUser != null) setAdapter(
+            sortedList.filter { s -> s.poster == auth.currentUser?.uid })
+        else setAdapter(sortedList)
+    }
+
     val bindingInterface = object : RecyclerBindingInterface {
         override fun bindData(item: Post, view: View) {
             val itemBinding = PostItemBinding.bind(view)
             itemBinding.txtTitle.text = item.title
             itemBinding.txtPlace.text = "Ubicación: " + item.place
-            itemBinding.txtSpecies.text = "Especie:" + item.species.let{if(it.isNotEmpty()) it else "-"}
-            itemBinding.txtPrice.text = "Precio: $" + item.price.let{if(it.isNotEmpty()) it else "-"}
+            itemBinding.txtSpecies.text =
+                "Especie:" + item.species.let { if (it.isNotEmpty()) it else "-" }
+            itemBinding.txtPrice.text =
+                "Precio: $" + item.price.let { if (it.isNotEmpty()) it else "-" }
             if (item.image.size > 0) {
                 Glide.with(context!!).load(item.image[0]).into(itemBinding.imgPost)
             }

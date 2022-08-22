@@ -38,7 +38,9 @@ class addImagesFragment : Fragment(R.layout.fragment_add_images) {
     companion object {
         private lateinit var binding: FragmentAddImagesBinding
         private var img_flag: Int = 0
-        var imageUriList = mutableListOf<Uri>(Uri.EMPTY,Uri.EMPTY,Uri.EMPTY,Uri.EMPTY,Uri.EMPTY,Uri.EMPTY)
+        //var imageUriList = mutableListOf<Uri>(Uri.EMPTY,Uri.EMPTY,Uri.EMPTY,Uri.EMPTY,Uri.EMPTY,Uri.EMPTY)
+        var imageUriList = MutableList(6){Uri.EMPTY}
+
 
         var imageUri_11 by Delegates.observable(Uri.EMPTY) { prop, old, new ->
             binding.img11.setImageURI(new)

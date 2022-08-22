@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/back"
     tools:context=".ui.AuthFragment">
 
     <TextView
@@ -20,7 +21,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
-        android:hint="Email">
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        app:boxBackgroundColor="@color/white"
+        app:boxCornerRadiusTopEnd="25dp"
+        app:boxCornerRadiusBottomEnd="25dp"
+        app:boxCornerRadiusBottomStart="25dp"
+        android:hint="Email"
+        app:hintTextColor="@color/black">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_email"
             android:layout_width="match_parent"
@@ -31,6 +39,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        app:boxBackgroundColor="@color/white"
+        app:boxCornerRadiusTopEnd="25dp"
+        app:boxCornerRadiusBottomEnd="25dp"
+        app:boxCornerRadiusBottomStart="25dp"
         app:passwordToggleEnabled="true"
         android:hint="Contraseña">
         <com.google.android.material.textfield.TextInputEditText
@@ -44,6 +58,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:textStyle="bold"
         android:text="Ingresar"/>
 
     <TextView
@@ -52,6 +72,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_gravity="center_horizontal"
-        android:text="Crear una cuenta"/>
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:text="¿Aún no tiene un cuenta? Registrarse"/>
 
 </LinearLayout>
