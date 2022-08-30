@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context=".ui.home.MainScreenFragment">
 
 
@@ -14,9 +15,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:background="@drawable/username_back"
+        android:background="@drawable/custom_text_back"
         android:textSize="25sp"
-        android:textColor="@color/black"
+        android:textColor="@color/text_color"
         android:textStyle="bold"
         tools:text="Nombre de usuario" />
 
@@ -36,6 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:textSize="15dp"
+                android:textColor="@color/text_color"
                 android:checked="true"
                 android:text="Ver todas las publicaciones" />
 
