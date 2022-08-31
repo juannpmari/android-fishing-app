@@ -5,15 +5,26 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ui.home.editProfileFragment">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_text_back"
+        android:gravity="center_horizontal"
+        android:textSize="50dp"
+        android:textStyle="bold"
+        android:textColor="@color/text_color"
+        android:text="Editar perfil"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:hint="New username">
+        android:hint="Nuevo nombre de usuario">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_username"
+            android:background="@color/white"
+            android:textColor="@color/text_color"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -21,10 +32,12 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="New phone number">
+        android:hint="Nuevo teléfono">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_phone"
+            android:background="@color/white"
+            android:textColor="@color/text_color"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -32,19 +45,25 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="New facebook page">
+        android:hint="Nueva página de Facebook">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_face"
+            android:background="@color/white"
+            android:textColor="@color/text_color"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/custom_button"
+        android:textColor="@color/text_color"
+        android:textAllCaps="false"
         android:text="Guardar" />
 
 </LinearLayout>

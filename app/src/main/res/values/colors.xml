@@ -8,7 +8,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="button">#91FFFD</color>
-    <color name="text_back">#91FFFD</color>
+    <color name="text_back">#FFFFFFFF</color>
     <color name="back">#DEDEDE</color>
     <color name="text_color">#5B5B5B</color>
+    <color name="search">#D1D1D1</color>
 </resources>
+

@@ -15,6 +15,7 @@
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_gravity="center_horizontal"
+            android:scaleType="fitXY"
             android:visibility="visible"
             android:src="@mipmap/ic_launcher"/>
         <ImageView
@@ -22,6 +23,7 @@
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_gravity="center_horizontal"
+            android:scaleType="fitXY"
             android:visibility="visible"
             android:src="@mipmap/ic_launcher"/>
     </LinearLayout>
@@ -35,6 +37,7 @@
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_gravity="center_horizontal"
+            android:scaleType="fitXY"
             android:visibility="visible"
             android:src="@mipmap/ic_launcher"/>
         <ImageView
@@ -42,6 +45,7 @@
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_gravity="center_horizontal"
+            android:scaleType="fitXY"
             android:visibility="visible"
             android:src="@mipmap/ic_launcher"/>
     </LinearLayout>
@@ -55,6 +59,7 @@
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_gravity="center_horizontal"
+            android:scaleType="fitXY"
             android:visibility="visible"
             android:src="@mipmap/ic_launcher"/>
         <ImageView
@@ -62,22 +67,29 @@
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_gravity="center_horizontal"
+            android:scaleType="fitXY"
             android:visibility="visible"
             android:src="@mipmap/ic_launcher"/>
     </LinearLayout>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_create"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:background="@drawable/custom_button"
+        android:textColor="@color/text_color"
+        android:textAllCaps="false"
+        android:layout_marginTop="8dp"
         android:text="Crear post"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
-        android:text="El post puede tardar en generar"
+        android:textSize="18dp"
+        android:textColor="@color/text_color"
+        android:text="El post puede tardar en crearse"
         />
 
 </LinearLayout>

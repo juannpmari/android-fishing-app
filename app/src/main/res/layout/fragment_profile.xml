@@ -6,14 +6,19 @@
     android:orientation="vertical"
     tools:context=".ui.home.ProfileFragment">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context=".ui.home.PostFragment">
     <TextView
         android:id="@+id/txt_name"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="8dp"
+        android:gravity="center_horizontal"
         android:textSize="50dp"
-        android:textColor="@color/black"
+        android:textColor="@color/text_color"
+        android:background="@drawable/custom_text_back"
         android:textStyle="bold"
         tools:text="Username" />
 
@@ -22,7 +27,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="8dp"
+        android:textColor="@color/text_color"
         android:textSize="25dp"
         tools:text="Email" />
 
@@ -31,6 +38,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:textColor="@color/text_color"
         android:textSize="25dp"
         tools:text="Link de Facebook" />
 
@@ -39,32 +48,50 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:textColor="@color/text_color"
+
         android:textSize="25dp"
         tools:text="Teléfono" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/custom_button"
+        android:textColor="@color/text_color"
+        android:textAllCaps="false"
+        android:textSize="25dp"
         android:text="Editar información" />
 
-    <TextView
-        android:id="@+id/txt_logOut"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="150dp"
-        android:text="Cerrar sesión"
-        android:textSize="25dp" />
 
-    <TextView
-        android:id="@+id/txt_deleteAcc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="8dp"
-        android:text="Eliminar cuenta"
-        android:textSize="25dp" />
+    </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/txt_logOut"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Cerrar sesión"
+            android:textColor="@color/text_color"
+            android:textSize="25dp" />
+
+        <TextView
+            android:id="@+id/txt_deleteAcc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textColor="@color/text_color"
+            android:text="Eliminar cuenta"
+            android:textSize="25dp" />
+    </LinearLayout>
 </LinearLayout>
+

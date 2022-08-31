@@ -11,7 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@drawable/custom_back"
         tools:context=".ui.home.PostFragment">
 
 
@@ -22,7 +21,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center_horizontal"
-            android:background="@drawable/custom_text_back"
             android:textColor="@color/text_color"
             android:textSize="40sp"
             android:textStyle="bold"
@@ -40,6 +38,8 @@
             android:id="@+id/txt_poster"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/text_color"
+            android:layout_marginStart="10dp"
             android:hint="Publicado por:"
             android:textSize="20sp" />
 
@@ -47,6 +47,8 @@
             android:id="@+id/txt_place"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/text_color"
+            android:layout_marginStart="10dp"
             android:hint="Lugar:"
             android:textSize="20sp" />
 
@@ -54,6 +56,8 @@
             android:id="@+id/txt_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/text_color"
+            android:layout_marginStart="10dp"
             android:hint="Precio:"
             android:textSize="20sp" />
 
@@ -61,6 +65,9 @@
             android:id="@+id/txt_species"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColorHint="@color/text_color"
+            android:textColor="@color/text_color"
+            android:layout_marginStart="10dp"
             android:hint="Especie:"
             android:textSize="20sp" />
 
@@ -68,6 +75,8 @@
             android:id="@+id/txt_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/text_color"
+            android:layout_marginStart="10dp"
             android:hint="Teléfono:"
             android:textSize="20sp" />
 
@@ -75,6 +84,8 @@
             android:id="@+id/txt_faceLink"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/text_color"
+            android:layout_marginStart="10dp"
             android:hint="Facebook:"
             android:textSize="20sp" />
 
@@ -82,6 +93,8 @@
             android:id="@+id/txt_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/text_color"
+            android:layout_marginStart="10dp"
             android:hint="Descripción:"
             android:textSize="20sp" />
     </LinearLayout>
@@ -91,11 +104,14 @@
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_delete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
+            android:textColor="@color/text_color"
+            android:background="@drawable/custom_button"
+            android:textSize="20dp"
             android:text="Eliminar post" />
     </LinearLayout>
 

@@ -11,7 +11,6 @@
         android:layout_height="wrap_content"
         android:textSize="30sp"
         android:textStyle="bold"
-        android:background="@color/text_back"
         android:textColor="@color/text_color"
         android:gravity="center_horizontal"
         tools:text ="Title"/>
@@ -22,6 +21,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/text_color"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         tools:text = "Ubicación"/>
 
     <TextView
@@ -30,6 +31,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/text_color"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         tools:text = "Especie(s)"/>
 
     <TextView
@@ -38,6 +41,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/text_color"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         tools:text = "Precio"/>
 
     <ImageView
@@ -45,5 +50,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:background="@mipmap/ic_launcher"
+        android:scaleType="fitXY"
         android:layout_marginBottom="8dp"/>
 </LinearLayout>
