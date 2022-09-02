@@ -95,6 +95,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/text_color"
             android:layout_marginStart="10dp"
+            android:scrollbars="vertical"
             android:hint="Descripción:"
             android:textSize="20sp" />
     </LinearLayout>
