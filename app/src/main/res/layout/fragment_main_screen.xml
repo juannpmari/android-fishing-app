@@ -24,45 +24,32 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <RadioGroup
-            android:id="@+id/rb_publi"
-            android:layout_width="wrap_content"
+        android:orientation="vertical">
+        <EditText
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <RadioButton
-                android:id="@+id/rb_all"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textSize="15dp"
-                android:textColor="@color/text_color"
-                android:checked="true"
-                android:text="Ver todas las publicaciones" />
-
-            <RadioButton
-                android:id="@+id/rb_mine"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textSize="15dp"
-                android:checked="false"
-                android:text="Ver mis publicaciones" />
-        </RadioGroup>
+            android:background="@drawable/searchbar_back"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="4dp"
+            android:hint=" Buscar publicación..." />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:background="@drawable/sort_back"
-            android:layout_marginLeft="8dp"
-            android:orientation="vertical">
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="4dp"
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:textSize="20dp"
-                android:textColor="@color/black"
+                android:gravity="center_horizontal"
+                android:textSize="15dp"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/text_color"
                 android:text="Ordenar por:" />
 
             <Spinner
@@ -74,17 +61,35 @@
                 android:spinnerMode="dropdown" />
         </LinearLayout>
 
+        <RadioGroup
+            android:id="@+id/rb_publi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="10dp">
+
+            <RadioButton
+                android:id="@+id/rb_mine"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="15dp"
+                android:textColor="@color/text_color"
+                android:checked="false"
+                android:text="Mis publicaciones" />
+
+            <RadioButton
+                android:id="@+id/rb_all"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="15dp"
+                android:textColor="@color/text_color"
+                android:checked="true"
+                android:text="Todas las publicaciones" />
+        </RadioGroup>
 
     </LinearLayout>
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/searchbar_back"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="10dp"
-        android:hint=" Buscar publicación..." />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_mainScreen"
